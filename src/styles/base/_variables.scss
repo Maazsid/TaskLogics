@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Roboto:wght@400;700&display=swap');
+
 /* font variables */
 
-$primary-font: Segoe UI;
-$secondary-font: Nunito;
+$primary-font: 'Open Sans', sans-serif; // links + application UI
+$secondary-font: 'Roboto', sans-serif; // For Heading, sub headings and buttons.
