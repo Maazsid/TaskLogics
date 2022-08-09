@@ -1,9 +1,14 @@
-import React from 'react';
+import { materialTheme } from './Theme/MaterialTheme';
+import { ThemeProvider } from '@mui/material/styles';
+import MainLayout from './features/layout/MainLayout';
 import './App.scss';
 
 function App() {
   return (
-      <h1>Hello</h1>
+    <ThemeProvider theme={materialTheme}>
+      <MainLayout>
+      </MainLayout>
+    </ThemeProvider>
   );
 }
 
