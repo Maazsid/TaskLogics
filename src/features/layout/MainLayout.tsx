@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const MainLayout = (props: any) => {
   return (
     <>
-      <Header />
-      <div>{props.children}</div>
+      <Navbar />
+      <Outlet />
     </>
   );
 };

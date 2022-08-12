@@ -33,4 +33,4 @@ const themeOptions: ThemeOptions = {
   },
 };
 
-export const materialTheme = createTheme(themeOptions);
+export const lightTheme = createTheme(themeOptions);
