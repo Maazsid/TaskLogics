@@ -6,3 +6,15 @@ $primary-font: 'Open Sans', sans-serif; // links + application UI
 $secondary-font: 'Roboto', sans-serif; // For Heading, sub headings and buttons.
 
 $box-shadow-1: 0px 7px 10px rgb(0 0 0 / 4%);
+$box-shadow-2: 0px 7px 14px rgb(0 0 0 / 10%);
+
+$breakpoints: (
+  zero: 0px,
+  xxs: 360px,
+  xs: 575px,
+  sm: 768px,
+  md: 991px,
+  lg: 1199px,
+  xl: 1400px,
+  xxl: 1600px,
+);

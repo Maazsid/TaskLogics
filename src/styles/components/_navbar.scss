@@ -1,20 +1,37 @@
 .navbar {
   &.MuiAppBar-root {
     background-color: #fff;
-    box-shadow: $box-shadow-1;
     padding: 0px 50px;
+    @include media-breakpoint('zero', 'xs') {
+      padding: 0px 0px;
+    }
   }
 
   & .MuiToolbar-root {
     align-items: stretch;
   }
 
-  .navbar__logo {
+  &__logo-wrapper {
+    @include flex(row, center, stretch);
+    @include media-breakpoint('zero', 'xs') {
+      flex: 1;
+    }
+  }
+
+  &__logo-link {
+    display: flex;
+  }
+
+  &__logo {
     width: 190px;
     height: 45px;
     align-self: center;
     &:hover {
       cursor: pointer;
+    }
+    @include media-breakpoint('zero', 'xs') {
+      width: 130px;
+      height: 34px;
     }
   }
 
@@ -46,6 +63,54 @@
       align-self: center;
       &:hover {
         border: none;
+      }
+
+      @include media-breakpoint('zero', 'xs') {
+        max-width: fit-content;
+      }
+    }
+  }
+
+  &__menu {
+    & .MuiPaper-root {
+      box-shadow: $box-shadow-2;
+    }
+  }
+
+  &__menu-icon-btn {
+    &.MuiIconButton-root {
+      padding: 0px;
+      align-self: center;
+    }
+  }
+
+  &__menu-icon {
+    &.MuiSvgIcon-root {
+      width: 34px;
+      height: 34px;
+      fill: $neutral-color-500;
+      @include media-breakpoint('zero', 'xs') {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  &__drawer {
+    &.MuiList-root {
+      min-width: 250px;
+    }
+  }
+
+  &__drawer-list-item {
+    &.MuiButtonBase-root {
+      text-transform: capitalize;
+      font-family: $primary-font;
+      font-size: 14px;
+      color: $neutral-color-600;
+      padding: 16px;
+      &.Mui-selected {
+        color: $primary-color-500;
       }
     }
   }

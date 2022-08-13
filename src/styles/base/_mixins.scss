@@ -5,9 +5,10 @@
   align-items: $yAlignment;
 }
 
-@mixin media-breakpoint-down($breakpoint) {
-  $breakpoint-value: map-get($breakpoints, $breakpoint);
-  @media (max-width: $breakpoint-value) {
+@mixin media-breakpoint($start-breakpoint, $end-breakpoint) {
+  $start-breakpoint-value: map-get($breakpoints, $start-breakpoint);
+  $end-breakpoint-value: map-get($breakpoints, $end-breakpoint);
+  @media (min-width: $start-breakpoint-value) and (max-width: $end-breakpoint-value) {
     @content;
   }
 }

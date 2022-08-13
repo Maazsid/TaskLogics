@@ -31,6 +31,15 @@ const themeOptions: ThemeOptions = {
       fontFamily: 'Open Sans',
     },
   },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0px 7px 10px rgb(0, 0, 0, 0.04)',
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme(themeOptions);
