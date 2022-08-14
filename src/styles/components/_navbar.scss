@@ -24,14 +24,14 @@
 
   &__logo {
     width: 190px;
-    height: 45px;
+    height: 40px;
     align-self: center;
     &:hover {
       cursor: pointer;
     }
     @include media-breakpoint('zero', 'xs') {
-      width: 130px;
-      height: 34px;
+      width: 140px;
+      height: 35px;
     }
   }
 
