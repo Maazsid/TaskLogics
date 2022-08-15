@@ -1,79 +1,8 @@
 .task {
-  border: 1px solid #eee;
-  padding: 20px;
+  width: 100%;
   border-radius: 6px;
-  max-height: calc(100vh - 195px);
-  overflow-y: auto;
-  @include scrollBar();
 
-  &__empty-list-wrapper {
-    @include flex(column, center, center);
-  }
-
-  &__empty-list-icon {
-    &.MuiSvgIcon-root {
-      width: 220px;
-      height: 220px;
-    }
-  }
-
-  &__empty-list-header {
-    font-family: $secondary-font;
-    font-size: 24px;
-    font-weight: 400;
-    margin-top: $margin-4;
-    color: $neutral-color-600;
-  }
-
-  &__empty-list-text {
-    margin-top: $margin-2;
-    font-size: 18px;
-    color: $neutral-color-700;
-    font-family: $secondary-font;
-    font-weight: 400;
-  }
-
-  &__week-separator {
-    @include flex(row, space-between, center);
-    flex: 1;
-  }
-
-  &__list-item {
-    margin-top: $margin-4;
-    &:first-child {
-      margin-top: 0px;
-    }
-  }
-
-  &__separator-line {
-    flex-basis: 50%;
-    height: 1px;
-    background-color: $grey-color-100;
-    &:first-child {
-      margin-right: $margin-4;
-    }
-    &:last-child {
-      margin-left: $margin-4;
-    }
-  }
-
-  &__week-separator-text {
-    font-family: $primary-font;
-    font-size: 14px;
-    min-width: fit-content;
-    color: $neutral-color-700;
-    &--bold {
-      font-weight: 600;
-      margin-left: $margin-1;
-    }
-  }
-
-  &__card {
-    width: 100%;
-    border-radius: 6px;
-  }
-
-  &__card-header {
+  &__header {
     @include flex(row, center, center);
     padding: 16px;
     background-color: $grey-color-50;
@@ -82,29 +11,29 @@
     border-top-left-radius: 6px;
   }
 
-  &__card-header-title {
+  &__header-title {
     font-family: $secondary-font;
     font-size: 15px;
     color: $neutral-color-700;
     font-weight: 400;
   }
 
-  &__card-header-list {
+  &__header-list {
     @include flex(row, flex-end, center);
     flex: 1;
   }
 
-  &__card-header-list-item {
+  &__header-list-item {
     font-family: $primary-font;
     font-size: 16px;
     color: $neutral-color-700;
   }
 
-  &__card-content {
+  &__content {
     padding: 20px;
   }
 
-  &__card-list-item {
+  &__list-item {
     &.MuiListItem-root {
       &:not(:first-child) {
         margin-top: $margin-5;

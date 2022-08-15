@@ -1,0 +1,26 @@
+.week-separator {
+  @include flex(row, space-between, center);
+  flex: 1;
+  &__line {
+    flex-basis: 50%;
+    height: 1px;
+    background-color: $grey-color-100;
+    &:first-child {
+      margin-right: $margin-4;
+    }
+    &:last-child {
+      margin-left: $margin-4;
+    }
+  }
+
+  &__text {
+    font-family: $primary-font;
+    font-size: 14px;
+    min-width: fit-content;
+    color: $neutral-color-700;
+    &--bold {
+      font-weight: 600;
+      margin-left: $margin-1;
+    }
+  }
+}

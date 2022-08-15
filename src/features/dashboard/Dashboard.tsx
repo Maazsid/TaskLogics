@@ -1,16 +1,16 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import TaskList from './TaskList';
+import TaskContainer from './task/TaskContainer';
 import TimeTracker from './TimeTracker';
 
 const Dashboard = () => {
   return (
     <div className='page-container'>
       <Grid container spacing={10}>
-        <Grid item xs={12} lg = {8}>
-          <TaskList />
+        <Grid item xs={12} lg={8}>
+          <TaskContainer />
         </Grid>
-        <Grid item xs={12} lg = {4}>
+        <Grid item xs={12} lg={4}>
           <TimeTracker />
         </Grid>
       </Grid>
