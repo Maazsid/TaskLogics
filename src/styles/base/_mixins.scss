@@ -12,3 +12,22 @@
     @content;
   }
 }
+
+@mixin scrollBar() {
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid #c5c5c5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: hsl(0, 0%, 94%);
+    &:hover {
+      background-color: hsl(0, 0%, 90%);
+    }
+  }
+}

@@ -36,10 +36,7 @@ const TimeTracker = () => {
           <header className='tracker__header'>
             <h2 className='tracker__header-title'>Time Tracker</h2>
             <div className='tracker__header-options'>
-              <IconButton
-                className='tracker__ellipsis-btn'
-                onClick={openOptionsMenu}
-              >
+              <IconButton onClick={openOptionsMenu}>
                 <EllipsisIcon />
               </IconButton>
             </div>
@@ -49,7 +46,7 @@ const TimeTracker = () => {
             open={!!optionsAnchor}
             anchorEl={optionsAnchor}
             onClose={closeOptionsMenu}
-            elevation = {4}
+            elevation={4}
           >
             <MenuItem
               className='tracker__option-menu-item'
@@ -71,11 +68,11 @@ const TimeTracker = () => {
 
           <div className='tracker__action-btn-wrapper'>
             {isPlaying ? (
-              <IconButton size='large' onClick={toggleIsPlaying}>
+              <IconButton onClick={toggleIsPlaying}>
                 <StopCircleIcon className='tracker__icon tracker__icon--stop' />
               </IconButton>
             ) : (
-              <IconButton size='large' onClick={toggleIsPlaying}>
+              <IconButton onClick={toggleIsPlaying}>
                 <PlayCircleIcon className='tracker__icon tracker__icon--play' />
               </IconButton>
             )}
