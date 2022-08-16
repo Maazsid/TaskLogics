@@ -24,10 +24,6 @@ const TaskContainer = () => {
               <ListItem className='task-list__item' disablePadding>
                 <Task />
               </ListItem>
-
-              <ListItem className='task-list__item' disablePadding>
-                <WeekSeparator />
-              </ListItem>
             </List>
           </>
         ) : (
