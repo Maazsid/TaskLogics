@@ -1,10 +1,10 @@
 import { List, ListItem } from '@mui/material';
 import React from 'react';
 import EmptyListIcon from '../../../shared-components/svgs/EmptyListIcon';
-import Task from './Task';
+import TaskCard from './TaskCard';
 import WeekSeparator from './WeekSeparator';
 
-const TaskContainer = () => {
+const TaskList = () => {
   const isTasksAvail = true;
 
   return (
@@ -13,7 +13,7 @@ const TaskContainer = () => {
         <h2 className='header__title'>Tasks List</h2>
       </header>
 
-      <div className='task-container'>
+      <div className='task-list'>
         {isTasksAvail ? (
           <>
             <List>
@@ -22,7 +22,7 @@ const TaskContainer = () => {
               </ListItem>
 
               <ListItem className='task-list__item' disablePadding>
-                <Task />
+                <TaskCard />
               </ListItem>
             </List>
           </>
@@ -40,4 +40,4 @@ const TaskContainer = () => {
   );
 };
 
-export default TaskContainer;
+export default TaskList;

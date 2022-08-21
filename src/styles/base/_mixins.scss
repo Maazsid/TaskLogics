@@ -31,3 +31,9 @@
     }
   }
 }
+
+@mixin text {
+  font-family: $primary-font;
+  color: $neutral-color-700;
+  font-size: 16px;
+}

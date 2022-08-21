@@ -1,4 +1,10 @@
 .task-list {
+  box-shadow: $box-shadow-3;
+  padding: 20px;
+  border-radius: 6px;
+  max-height: calc(100vh - 195px);
+  overflow-y: auto;
+  @include scrollBar();
   &__empty-wrapper {
     @include flex(column, center, center);
   }

@@ -1,4 +1,7 @@
 .tracker {
+  &.MuiPaper-root {
+    box-shadow: $box-shadow-3;
+  }
   &__header {
     @include flex(row, flex-start, center);
     margin-bottom: $margin-3;
