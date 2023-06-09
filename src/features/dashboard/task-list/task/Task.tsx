@@ -1,7 +1,8 @@
 import { TextField, IconButton } from '@mui/material';
-import  { SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import EllipsisIcon from '@components/svgs/EllipsisIcon';
+import classes from './Task.module.scss';
 
 const Task = () => {
   const onInputChange = (e: SyntheticEvent) => {
@@ -9,27 +10,27 @@ const Task = () => {
   };
 
   return (
-    <div className="task">
+    <div className={classes.task}>
       <TextField
-        className="task__input"
+        className={classes.description}
         label="Enter your description"
         variant="outlined"
         size="small"
         onClick={onInputChange}
         fullWidth
       />
-      <div className="task__time-range">
-        <TextField className="task__input" variant="standard"></TextField>
-        <span className="task__time-range-separator">-</span>
-        <TextField className="task__input" variant="standard"></TextField>
+      <div className={classes.timeRange}>
+        <TextField className={classes.description} variant="standard"></TextField>
+        <span className={classes.timeRangeSeparator}>-</span>
+        <TextField className={classes.description} variant="standard"></TextField>
       </div>
-      <p className="task__total-time">00:22:00</p>
-      <div className="task__action-btn">
+      <p className={classes.totalTime}>00:22:00</p>
+      <div className={classes.actionBtn}>
         <IconButton>
-          <PlayCircleIcon className="task__icon task__icon--play" />
+          <PlayCircleIcon className={`${classes.icon} ${classes.play}`} />
         </IconButton>
         {/* <IconButton>
-          <StopCircleIcon className='task__icon task__icon--stop' />
+          <StopCircleIcon className={`${classes.icon} ${classes.stop}`} />
         </IconButton> */}
         <IconButton>
           <EllipsisIcon />

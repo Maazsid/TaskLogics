@@ -1,0 +1,55 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.task {
+  @include flex(row, center, center);
+  width: 100%;
+}
+
+.description {
+  &:global(.MuiTextField-root) {
+    & :global .MuiInputBase-input {
+      @include text;
+    }
+  }
+}
+
+.totalTime {
+  align-self: center;
+  margin-left: $margin-4;
+  margin-right: $margin-1;
+  @include text;
+}
+
+.timeRange {
+  @include flex(row, center, center);
+  margin: 0px $margin-4;
+}
+
+.timeRangeSeparator {
+  padding: 0px 12px;
+}
+
+.actionBtn {
+  @include flex(row, flex-start, center);
+}
+
+.icon {
+  &:global(.MuiSvgIcon-root) {
+    width: 30px;
+    height: 30px;
+  }
+  &.play {
+    &:global(.MuiSvgIcon-root) {
+      fill: $primary-color-500;
+    }
+  }
+
+  &.stop {
+    &:global(.MuiSvgIcon-root) {
+      fill: $danger-color-400;
+    }
+  }
+}

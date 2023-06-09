@@ -1,0 +1,60 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.header {
+  margin-bottom: $margin-4;
+}
+
+.headerTitle {
+  font-family: $secondary-font;
+  text-transform: capitalize;
+  color: $neutral-color-700;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.taskList {
+  box-shadow: $box-shadow-3;
+  padding: 20px;
+  border-radius: 6px;
+  max-height: calc(100vh - 195px);
+  overflow-y: auto;
+  @include scrollBar();
+}
+
+.taskListItem {
+  margin-top: $margin-4;
+
+  &:first-child {
+    margin-top: 0px;
+  }
+}
+
+.emptyListWrapper {
+  @include flex(column, center, center);
+}
+
+.emptyListIcon {
+  &:global(.MuiSvgIcon-root) {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.emptyListHeader {
+  font-family: $secondary-font;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: $margin-4;
+  color: $neutral-color-600;
+}
+
+.emptyListDescription {
+  margin-top: $margin-2;
+  font-size: 18px;
+  color: $neutral-color-700;
+  font-family: $secondary-font;
+  font-weight: 400;
+}

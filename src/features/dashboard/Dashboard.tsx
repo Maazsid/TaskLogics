@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import TaskList from './task/TaskList';
-import TimeTracker from './TimeTracker';
+import TaskList from './task-list/TaskList';
+import TimeTracker from './time-tracker/TimeTracker';
 
 const Dashboard = () => {
   return (
@@ -17,4 +17,4 @@ const Dashboard = () => {
   );
 };
 
-export { Dashboard }
+export { Dashboard };

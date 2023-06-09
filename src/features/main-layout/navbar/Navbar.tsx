@@ -18,6 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import logo from '@assets/images/logo.png';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
+import classes from './Navbar.module.scss';
 
 const Navbar = () => {
   const pages: Array<{ name: string; path: string }> = [
@@ -45,7 +46,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar className="navbar" position="static">
+    <AppBar className={classes.navbar} position="static">
       <Toolbar>
         {isMobile && (
           <IconButton onClick={toggleDrawerHandler}>
@@ -54,11 +55,11 @@ const Navbar = () => {
         )}
 
         <Drawer open={isDrawerOpen} onClose={toggleDrawerHandler} anchor="left">
-          <List className="navbar__drawer">
+          <List className={classes.drawer}>
             {pages.map((page, index) => (
               <Link to={page.path} key={index}>
                 <ListItemButton
-                  className="navbar__drawer-list-item"
+                  className={classes.drawerListItem}
                   selected={location.pathname === page.path}
                   onClick={toggleDrawerHandler}
                 >
@@ -69,17 +70,17 @@ const Navbar = () => {
           </List>
         </Drawer>
 
-        <div className="navbar__logo-wrapper">
-          <Link className="navbar__logo-link" to="dashboard">
-            <Box className="navbar__logo" component="img" alt="logo" src={logo} />
+        <div className={classes.logoWrapper}>
+          <Link className={classes.logoLink} to="dashboard">
+            <Box className={classes.logo} component="img" alt="logo" src={logo} />
           </Link>
         </div>
 
         {!isMobile && (
-          <Tabs className="navbar__links-list" centered value={location.pathname}>
+          <Tabs className={classes.linkList} centered value={location.pathname}>
             {pages.map((page, index) => (
               <Tab
-                className="navbar__link-item"
+                className={classes.linkItem}
                 component={NavLink}
                 label={page.name}
                 disableRipple={true}
@@ -93,11 +94,11 @@ const Navbar = () => {
 
         {isAuthorized && (
           <>
-            <IconButton className="navbar__menu-icon-btn" onClick={openMenuHandler}>
-              <AccountCircle className="navbar__menu-icon" />
+            <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
+              <AccountCircle className={classes.menuIcon} />
             </IconButton>
             <Menu
-              className="navbar__menu"
+              className={classes.menu}
               open={!!anchorEl}
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -116,7 +117,7 @@ const Navbar = () => {
           </>
         )}
         {!isAuthorized && (
-          <Button className="navbar__login-btn" variant="outlined">
+          <Button className={classes.loginBtn} variant="outlined">
             Login
           </Button>
         )}

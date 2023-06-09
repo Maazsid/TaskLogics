@@ -3,6 +3,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import { useState, MouseEvent } from 'react';
 import EllipsisIcon from '@components/svgs/EllipsisIcon';
+import classes from './TimeTracker.module.scss';
 
 const TimeTracker = () => {
   const [optionsAnchor, setOptionsAnchor] = useState<HTMLElement | null>(null);
@@ -23,11 +24,11 @@ const TimeTracker = () => {
 
   return (
     <>
-      <Card className="tracker">
+      <Card className={classes.tracker}>
         <CardContent>
-          <header className="tracker__header">
-            <h2 className="tracker__header-title">Time Tracker</h2>
-            <div className="tracker__header-options">
+          <header className={classes.header}>
+            <h2 className={classes.headerTitle}>Time Tracker</h2>
+            <div className={classes.headerOptions}>
               <IconButton onClick={openOptionsMenu}>
                 <EllipsisIcon />
               </IconButton>
@@ -35,7 +36,7 @@ const TimeTracker = () => {
           </header>
 
           <Menu open={!!optionsAnchor} anchorEl={optionsAnchor} onClose={closeOptionsMenu} elevation={4}>
-            <MenuItem className="tracker__option-menu-item" onClick={closeOptionsMenu}>
+            <MenuItem className={classes.optionMenuItem} onClick={closeOptionsMenu}>
               Discard
             </MenuItem>
           </Menu>
@@ -48,16 +49,16 @@ const TimeTracker = () => {
             label="Enter description"
             variant="outlined"
           ></TextField>
-          <h3 className="tracker__timer-text">00:00:00</h3>
+          <h3 className={classes.timerText}>00:00:00</h3>
 
-          <div className="tracker__action-btn-wrapper">
+          <div className={classes.actionBtnWrapper}>
             {isPlaying ? (
               <IconButton onClick={toggleIsPlaying}>
-                <StopCircleIcon className="tracker__icon tracker__icon--stop" />
+                <StopCircleIcon className={`${classes.icon} ${classes.stop}`} />
               </IconButton>
             ) : (
               <IconButton onClick={toggleIsPlaying}>
-                <PlayCircleIcon className="tracker__icon tracker__icon--play" />
+                <PlayCircleIcon className={`${classes.icon} ${classes.play}`} />
               </IconButton>
             )}
           </div>

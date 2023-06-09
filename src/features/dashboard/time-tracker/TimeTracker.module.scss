@@ -1,0 +1,66 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.tracker {
+  &:global(.MuiPaper-root) {
+    box-shadow: $box-shadow-3;
+  }
+}
+
+.header {
+  @include flex(row, flex-start, center);
+  margin-bottom: $margin-3;
+}
+
+.headerTitle {
+  font-family: $secondary-font;
+  text-transform: capitalize;
+  color: $neutral-color-700;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.headerOptions {
+  @include flex(row, flex-end, center);
+  flex: 1;
+}
+
+.timerText {
+  margin-top: $margin-5;
+  font-family: $primary-font;
+  text-align: center;
+  font-size: 40px;
+  color: $neutral-color-700;
+}
+
+.actionBtnWrapper {
+  @include flex(row, center, center);
+  margin-top: $margin-2;
+}
+
+.icon {
+  &:global(.MuiSvgIcon-root) {
+    width: 60px;
+    height: 60px;
+  }
+
+  &.play {
+    &:global(.MuiSvgIcon-root) {
+      fill: $primary-color-500;
+    }
+  }
+  
+  &.stop {
+    &:global(.MuiSvgIcon-root) {
+      fill: $danger-color-400;
+    }
+  }
+}
+
+.optionMenuItem {
+  &:global(.MuiMenuItem-root) {
+    color: $danger-color-500;
+  }
+}

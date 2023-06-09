@@ -1,9 +1,9 @@
 import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '@material-themes/LightTheme';
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
-import MainLayout from '@features/layout/MainLayout';
-import './App.scss';
+import MainLayout from '@features/main-layout/MainLayout';
 import Login from '@features/auth/Login';
+import './App.scss';
 
 const router = createBrowserRouter([
   {
