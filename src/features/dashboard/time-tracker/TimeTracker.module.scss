@@ -3,9 +3,32 @@
 @import 'mixins';
 @import 'spacing';
 
-.tracker {
+.trackerCard {
+  position: relative;
+
   &:global(.MuiPaper-root) {
     box-shadow: $box-shadow-3;
+  }
+
+  & :global .MuiCardContent-root {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0px;
+    transition: background-color 300ms;
+  }
+
+  &.loading {
+    & :global .MuiCardContent-root {
+      pointer-events: none;
+    }
+    &::after {
+      background-color: $grey-color-50;
+    }
   }
 }
 

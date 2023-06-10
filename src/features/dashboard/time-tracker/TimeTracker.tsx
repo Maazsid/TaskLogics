@@ -7,8 +7,8 @@ import classes from './TimeTracker.module.scss';
 
 const TimeTracker = () => {
   const [optionsAnchor, setOptionsAnchor] = useState<HTMLElement | null>(null);
-
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const openOptionsMenu = (event: MouseEvent<HTMLElement>) => {
     setOptionsAnchor(event.currentTarget);
@@ -24,7 +24,7 @@ const TimeTracker = () => {
 
   return (
     <>
-      <Card className={classes.tracker}>
+      <Card className={`${classes.trackerCard} ${isLoading ? classes.loading : ''}`}>
         <CardContent>
           <header className={classes.header}>
             <h2 className={classes.headerTitle}>Time Tracker</h2>
@@ -49,6 +49,7 @@ const TimeTracker = () => {
             label="Enter description"
             variant="outlined"
           ></TextField>
+
           <h3 className={classes.timerText}>00:00:00</h3>
 
           <div className={classes.actionBtnWrapper}>
