@@ -32,14 +32,13 @@ const TimeTracker = () => {
               <IconButton onClick={openOptionsMenu}>
                 <EllipsisIcon />
               </IconButton>
+              <Menu open={!!optionsAnchor} anchorEl={optionsAnchor} onClose={closeOptionsMenu} elevation={4}>
+                <MenuItem className={classes.optionMenuItem} onClick={closeOptionsMenu}>
+                  Discard
+                </MenuItem>
+              </Menu>
             </div>
           </header>
-
-          <Menu open={!!optionsAnchor} anchorEl={optionsAnchor} onClose={closeOptionsMenu} elevation={4}>
-            <MenuItem className={classes.optionMenuItem} onClick={closeOptionsMenu}>
-              Discard
-            </MenuItem>
-          </Menu>
 
           <TextField
             multiline

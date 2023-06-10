@@ -1,4 +1,13 @@
-import { List, ListItem, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import {
+  List,
+  ListItem,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  IconButton,
+  Badge,
+  Chip,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Task from '../task/Task';
 import classes from './TaskCard.module.scss';
@@ -16,37 +25,33 @@ const TaskCard = () => {
       <div className={classes.listWrapper}>
         <List>
           <ListItem className={classes.taskListItem} disablePadding>
-            <Accordion className={classes.accordion}>
-              <AccordionSummary className={classes.accordionSummary} expandIcon={<ExpandMoreIcon />}>
-                <Task />
-              </AccordionSummary>
-              <AccordionDetails className={classes.accordionDetail}>
-                <Task />
+            <Accordion className={classes.accordion} disableGutters={true}>
+              <AccordionSummary
+                className={classes.accordionSummary}
+                expandIcon={false && <ExpandIconButton />}
+              >
+                <Task numberOfSubItems={0} />
                 <span className={classes.emptyIconSpace}></span>
-              </AccordionDetails>
+              </AccordionSummary>
             </Accordion>
           </ListItem>
 
           <ListItem className={classes.taskListItem} disablePadding>
             <Accordion className={classes.accordion}>
-              <AccordionSummary className={classes.accordionSummary} expandIcon={<ExpandMoreIcon />}>
-                <Task />
+              <AccordionSummary className={classes.accordionSummary} expandIcon={<ExpandIconButton />}>
+                <Task numberOfSubItems={1} />
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetail}>
-                <Task />
-                <span className={classes.emptyIconSpace}></span>
-              </AccordionDetails>
-            </Accordion>
-          </ListItem>
-
-          <ListItem className={classes.taskListItem} disablePadding>
-            <Accordion className={classes.accordion}>
-              <AccordionSummary className={classes.accordionSummary} expandIcon={<ExpandMoreIcon />}>
-                <Task />
-              </AccordionSummary>
-              <AccordionDetails className={classes.accordionDetail}>
-                <Task />
-                <span className={classes.emptyIconSpace}></span>
+                <List className = {classes.subTaskListWrapper}>
+                  <ListItem className = {classes.subTaskListItem} disablePadding>
+                    <Task />
+                    <span className={classes.emptyIconSpace}></span>
+                  </ListItem>
+                  <ListItem className = {classes.subTaskListItem} disablePadding>
+                    <Task />
+                    <span className={classes.emptyIconSpace}></span>
+                  </ListItem>
+                </List>
               </AccordionDetails>
             </Accordion>
           </ListItem>
@@ -57,3 +62,11 @@ const TaskCard = () => {
 };
 
 export default TaskCard;
+
+const ExpandIconButton = () => {
+  return (
+    <IconButton>
+      <ExpandMoreIcon />
+    </IconButton>
+  );
+};

@@ -56,6 +56,10 @@
 
 .accordionSummary {
   &:global(.MuiAccordionSummary-root) {
+    cursor: auto;
+    &:hover {
+      cursor: auto;
+    }
     &:global(.Mui-focusVisible) {
       background-color: inherit;
     }
@@ -86,6 +90,16 @@
 }
 
 .emptyIconSpace {
-  width: 24px;
-  height: 24px;
+  width: 43px;
+  height: 43px;
+}
+
+.subTaskListWrapper {
+  flex: 1;
+}
+
+.subTaskListItem {
+  &:not(:first-child) {
+    margin-top: $margin-4;
+  }
 }

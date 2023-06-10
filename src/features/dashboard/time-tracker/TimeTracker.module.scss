@@ -84,6 +84,8 @@
 
 .optionMenuItem {
   &:global(.MuiMenuItem-root) {
+    background-color: $danger-color-50;
     color: $danger-color-500;
+    font-size: 14px;
   }
 }
