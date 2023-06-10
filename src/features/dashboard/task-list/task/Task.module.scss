@@ -6,6 +6,9 @@
 .task {
   @include flex(row, center, center);
   width: 100%;
+  @include media-breakpoint('zero', 'xs') {
+    flex-wrap: wrap;
+  }
 }
 
 .description {

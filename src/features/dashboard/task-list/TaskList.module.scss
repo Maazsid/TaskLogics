@@ -25,6 +25,10 @@
   overflow-y: auto;
   @include scrollBar();
 
+  @include media-breakpoint('zero', 'xs') {
+    max-height: initial;
+  }
+
   & :global .MuiList-root {
     position: relative;
     z-index: 2;
