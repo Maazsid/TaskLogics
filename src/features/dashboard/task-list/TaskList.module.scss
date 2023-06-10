@@ -16,12 +16,35 @@
 }
 
 .taskList {
+  position: relative;
+
   box-shadow: $box-shadow-3;
   padding: 20px;
   border-radius: 6px;
   max-height: calc(100vh - 195px);
   overflow-y: auto;
   @include scrollBar();
+
+  & :global .MuiList-root {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0px;
+    transition: background-color 300ms;
+  }
+
+  &.loading {
+    & :global .MuiList-root {
+      pointer-events: none;
+    }
+    &::after {
+      background-color: $grey-color-50;
+    }
+  }
 }
 
 .taskListItem {
