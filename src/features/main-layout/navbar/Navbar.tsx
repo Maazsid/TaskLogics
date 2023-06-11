@@ -20,7 +20,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 import classes from './Navbar.module.scss';
 
-const Navbar = () => {
+const Navbar = ({ hideLinks }: NavbarProps) => {
   const pages: Array<{ name: string; path: string }> = [
     { name: 'dashboard', path: '/dashboard' },
     { name: 'about us', path: '/about' },
@@ -46,84 +46,104 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar className={classes.navbar} position="static">
-      <Toolbar>
-        {isMobile && (
-          <IconButton onClick={toggleDrawerHandler}>
-            <MenuIcon />
-          </IconButton>
-        )}
-
-        <Drawer open={isDrawerOpen} onClose={toggleDrawerHandler} anchor="left">
-          <List className={classes.drawer}>
-            {pages.map((page, index) => (
-              <Link to={page.path} key={index}>
-                <ListItemButton
-                  className={classes.drawerListItem}
-                  selected={location.pathname === page.path}
-                  onClick={toggleDrawerHandler}
-                >
-                  {page.name}
-                </ListItemButton>
+    <>
+      {hideLinks && (
+        <AppBar className={classes.navbar} position="static">
+          <Toolbar>
+            <div className={classes.logoWrapper}>
+              <Link className={classes.logoLink} to="dashboard">
+                <Box className={classes.logo} component="img" alt="logo" src={logo} />
               </Link>
-            ))}
-          </List>
-        </Drawer>
+            </div>
+          </Toolbar>
+        </AppBar>
+      )}
 
-        <div className={classes.logoWrapper}>
-          <Link className={classes.logoLink} to="dashboard">
-            <Box className={classes.logo} component="img" alt="logo" src={logo} />
-          </Link>
-        </div>
+      {!hideLinks && (
+        <AppBar className={classes.navbar} position="static">
+          <Toolbar>
+            {isMobile && (
+              <IconButton onClick={toggleDrawerHandler}>
+                <MenuIcon />
+              </IconButton>
+            )}
 
-        {!isMobile && (
-          <Tabs className={classes.linkList} centered value={location.pathname}>
-            {pages.map((page, index) => (
-              <Tab
-                className={classes.linkItem}
-                component={NavLink}
-                label={page.name}
-                disableRipple={true}
-                key={index}
-                to={page.path}
-                value={page.path}
-              />
-            ))}
-          </Tabs>
-        )}
+            <Drawer open={isDrawerOpen} onClose={toggleDrawerHandler} anchor="left">
+              <List className={classes.drawer}>
+                {pages.map((page, index) => (
+                  <Link to={page.path} key={index}>
+                    <ListItemButton
+                      className={classes.drawerListItem}
+                      selected={location.pathname === page.path}
+                      onClick={toggleDrawerHandler}
+                    >
+                      {page.name}
+                    </ListItemButton>
+                  </Link>
+                ))}
+              </List>
+            </Drawer>
 
-        {isAuthorized && (
-          <>
-            <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
-              <AccountCircle className={classes.menuIcon} />
-            </IconButton>
-            <Menu
-              className={classes.menu}
-              open={!!anchorEl}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'center',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              onClose={closeMenuHandler}
-            >
-              <MenuItem>Logout</MenuItem>
-            </Menu>
-          </>
-        )}
-        {!isAuthorized && (
-          <Button className={classes.loginBtn} variant="outlined">
-            Login
-          </Button>
-        )}
-      </Toolbar>
-    </AppBar>
+            <div className={classes.logoWrapper}>
+              <Link className={classes.logoLink} to="dashboard">
+                <Box className={classes.logo} component="img" alt="logo" src={logo} />
+              </Link>
+            </div>
+
+            {!isMobile && (
+              <Tabs className={classes.linkList} centered value={location.pathname}>
+                {pages.map((page, index) => (
+                  <Tab
+                    className={classes.linkItem}
+                    component={NavLink}
+                    label={page.name}
+                    disableRipple={true}
+                    key={index}
+                    to={page.path}
+                    value={page.path}
+                  />
+                ))}
+              </Tabs>
+            )}
+
+            {isAuthorized && (
+              <>
+                <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
+                  <AccountCircle className={classes.menuIcon} />
+                </IconButton>
+                <Menu
+                  className={classes.menu}
+                  open={!!anchorEl}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'center',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  onClose={closeMenuHandler}
+                >
+                  <MenuItem>Logout</MenuItem>
+                </Menu>
+              </>
+            )}
+            {!isAuthorized && (
+              <Button className={classes.loginBtn} variant="outlined">
+                Login
+              </Button>
+            )}
+          </Toolbar>
+        </AppBar>
+      )}
+    </>
   );
 };
 
 export default Navbar;
+
+interface NavbarProps {
+  hideLinks?: boolean;
+}

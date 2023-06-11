@@ -39,6 +39,20 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          color: 'hsl(234, 12%, 39%)',
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'hsl(0 0% 98% / 1)',
+        },
+      },
+    },
   },
 };
 

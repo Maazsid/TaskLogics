@@ -2,8 +2,9 @@ import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '@material-themes/LightTheme';
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import MainLayout from '@features/main-layout/MainLayout';
-import Login from '@features/auth/Login';
+import Login from '@features/auth/login/Login';
 import './App.scss';
+import Register from '@features/auth/register/Register';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     element: <Login />,
     path: '/login',
+  },
+  {
+    element: <Register />,
+    path: '/register',
   },
 ]);
 
