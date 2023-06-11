@@ -2,3 +2,11 @@
   margin: 40px auto;
   max-width: 92%;
 }
+
+.page-container-2 {
+  margin: 40px auto;
+  max-width: 40%;
+  @include media-breakpoint('zero', 'lg') {
+    max-width: 90%;
+  }
+}

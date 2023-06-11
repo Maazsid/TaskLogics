@@ -13,7 +13,7 @@ const TaskList = () => {
   return (
     <>
       <header className={classes.header}>
-        <h2 className={classes.headerTitle}>Tasks List</h2>
+        <h2 className='headerTitle'>Tasks List</h2>
       </header>
 
       <div className={`${classes.taskList} ${isLoading ? classes.loading : ''}`}>

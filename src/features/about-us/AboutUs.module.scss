@@ -1,0 +1,27 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.mt4 {
+  margin-top: $margin-4;
+}
+
+.iconListWrapper {
+  margin-left: -10px;
+  margin-top: $margin-3;
+}
+
+.icon {
+  font-size: 28px;
+
+  &.linkedIn {
+    color: #0a66c2;
+  }
+  &.gmail {
+    color: #c71610;
+  }
+  &.github {
+    color: #171515;
+  }
+}
