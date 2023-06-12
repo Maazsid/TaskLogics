@@ -5,6 +5,7 @@ import MainLayout from '@features/main-layout/MainLayout';
 import Login from '@features/auth/login/Login';
 import './App.scss';
 import Register from '@features/auth/register/Register';
+import AuthLayout from '@features/main-layout/auth-layout/AuthLayout';
 
 const router = createBrowserRouter([
   {
@@ -35,12 +36,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <Login />,
-    path: '/login',
-  },
-  {
-    element: <Register />,
-    path: '/register',
+    element: <AuthLayout />,
+    children: [
+      {
+        element: <Login />,
+        path: '/login',
+      },
+      {
+        element: <Register />,
+        path: '/register',
+      },
+    ],
   },
 ]);
 
