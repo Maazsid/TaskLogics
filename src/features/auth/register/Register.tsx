@@ -1,5 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import classes from './Register.module.scss';
+import GoogleIcon from '@components/svgs/GoogleIcon';
+import FacebookIcon from '@components/svgs/FacebookIcon';
 
 const Register = () => {
   return (
@@ -58,6 +60,34 @@ const Register = () => {
       <Button className={classes.signUpBtn} variant="outlined" fullWidth>
         Sign up
       </Button>
+
+      <div className={classes.otherChoicesWrapper}>
+        <p>or</p>
+      </div>
+
+      <div className={classes.socialBtnWrapper}>
+        <Button className={classes.btn} variant="outlined">
+          Sign in as guest
+        </Button>
+        <Button
+          className={`${classes.btn} ${classes.socialBtn}`}
+          variant="outlined"
+          startIcon={<GoogleIcon />}
+        >
+          Sign up with Google
+        </Button>
+        <Button
+          className={`${classes.btn} ${classes.socialBtn}`}
+          variant="outlined"
+          startIcon={<FacebookIcon />}
+        >
+          Sign up with Facebook
+        </Button>
+      </div>
+
+      <p className={classes.footerText}>
+        Already have an account? <span className={classes.footerTextHighlight}>Sign in</span>
+      </p>
     </>
   );
 };
