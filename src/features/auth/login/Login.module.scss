@@ -1,0 +1,101 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.formField {
+  margin-top: $margin-5;
+}
+
+.signUpBtn {
+  margin-top: $margin-5;
+
+  &:global(.MuiButton-root) {
+    background-color: $primary-color-400;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    text-transform: capitalize;
+    align-self: center;
+    font-size: 16px;
+    &:hover {
+      border: none;
+    }
+  }
+}
+
+.otherChoicesWrapper {
+  position: relative;
+  margin-top: $margin-5;
+  @include flex(row, center, center);
+  @include text();
+  &::before {
+    position: absolute;
+    content: '';
+    height: 1px;
+    background-color: $grey-color-800;
+    width: 45%;
+    left: 0;
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    background-color: $grey-color-800;
+    width: 45%;
+    right: 0;
+  }
+}
+
+.socialBtnWrapper {
+  margin-top: $margin-4;
+}
+
+.btn {
+  text-transform: initial;
+  width: 100%;
+}
+
+.socialBtn {
+  color: $neutral-color-500;
+  border: 1px solid $grey-color-800;
+  &:not(:first-child) {
+    margin-top: $margin-3;
+  }
+
+  & :global .MuiButton-startIcon {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.footerText {
+  color: $neutral-color-500;
+  font-size: 16px;
+  font-family: $secondary-font;
+  text-align: center;
+  margin-top: $margin-4;
+}
+
+.footerTextHighlight {
+  color: $primary-color-500;
+  text-decoration: underline;
+  transition: color 250ms;
+  &:hover {
+    cursor: pointer;
+    color: $primary-color-700;
+  }
+}
+
+.forgotPasswordText {
+  margin-top: $margin-4;
+  color: $primary-color-500;
+  transition: color 250ms;
+  @include flex(row, flex-end, center);
+  &:hover {
+    cursor: pointer;
+    color: $primary-color-700;
+  }
+}
