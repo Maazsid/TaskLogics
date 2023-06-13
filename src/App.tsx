@@ -6,6 +6,9 @@ import Login from '@features/auth/login/Login';
 import './App.scss';
 import Register from '@features/auth/register/Register';
 import AuthLayout from '@features/main-layout/auth-layout/AuthLayout';
+import VerifyOtp from '@features/auth/verify-otp/VerifyOtp';
+import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
+import ResetPassword from '@features/auth/reset-password/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,18 @@ const router = createBrowserRouter([
       {
         element: <Register />,
         path: '/register',
+      },
+      {
+        element: <VerifyOtp />,
+        path: '/verify-otp',
+      },
+      {
+        element: <ForgotPassword />,
+        path: '/forgot-password',
+      },
+      {
+        element: <ResetPassword />,
+        path: '/reset-password',
       },
     ],
   },

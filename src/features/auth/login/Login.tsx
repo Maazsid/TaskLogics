@@ -29,7 +29,9 @@ const Login = () => {
         placeholder="Enter password"
       />
 
-      <p className={classes.forgotPasswordText}>Forgot password?</p>
+      <Link to="/forgot-password">
+        <p className={classes.forgotPasswordText}>Forgot password?</p>
+      </Link>
 
       <Button className={classes.signUpBtn} variant="outlined" fullWidth>
         Sign in
