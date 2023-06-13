@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material';
 import classes from './Register.module.scss';
 import GoogleIcon from '@components/svgs/GoogleIcon';
 import FacebookIcon from '@components/svgs/FacebookIcon';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   return (
@@ -86,7 +87,10 @@ const Register = () => {
       </div>
 
       <p className={classes.footerText}>
-        Already have an account? <span className={classes.footerTextHighlight}>Sign in</span>
+        Already have an account?{' '}
+        <Link className={classes.footerTextHighlight} to="/login">
+          Sign in
+        </Link>
       </p>
     </>
   );
