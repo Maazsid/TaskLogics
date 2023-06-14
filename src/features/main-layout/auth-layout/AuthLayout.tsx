@@ -1,11 +1,12 @@
 import { Grid, useMediaQuery } from '@mui/material';
 import Navbar from '../navbar/Navbar';
 import classes from './AuthLayout.module.scss';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import TaskManagementIcon from '@components/svgs/TaskManagementIcon';
 
 const AuthLayout = () => {
   const isMobileScreen = useMediaQuery('(max-width : 1280px)');
+  const location = useLocation();
 
   return (
     <>
@@ -30,7 +31,13 @@ const AuthLayout = () => {
         {isMobileScreen && <Grid item xs={0} sm={2}></Grid>}
 
         <Grid item xs={12} sm={isMobileScreen ? 8 : 6}>
-          <div className={classes.formContainer}>
+          <div
+            className={
+              location.pathname === '/login' || location.pathname === '/register'
+                ? classes.formContainer
+                : classes.formContainerCenter
+            }
+          >
             <Outlet />
           </div>
         </Grid>

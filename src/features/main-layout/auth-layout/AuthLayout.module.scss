@@ -19,6 +19,13 @@
   }
 }
 
+.formContainerCenter {
+  @include flex(column, center, stretch);
+  margin: 0px auto;
+  width: 70%;
+  height: 85%;
+}
+
 .heroSectionGrid {
   padding: 24px;
 }
@@ -37,8 +44,11 @@
 }
 
 .heroSectionHeader {
-  margin-bottom: $margin-10;
+  margin-bottom: $margin-8;
   text-align: center;
+  @media (min-width: 1280px) and (max-height: 864px) {
+    margin-bottom: 0px;
+  }
 }
 
 .heroSectionHeaderTitle {
