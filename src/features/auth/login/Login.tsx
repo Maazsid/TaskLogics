@@ -50,14 +50,14 @@ const Login = () => {
           variant="outlined"
           startIcon={<GoogleIcon />}
         >
-          Sign up with Google
+          Sign in with Google
         </Button>
         <Button
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
           startIcon={<FacebookIcon />}
         >
-          Sign up with Facebook
+          Sign in with Facebook
         </Button>
       </div>
 

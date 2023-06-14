@@ -1,9 +1,36 @@
+import { Button, TextField } from '@mui/material';
 import classes from './ResetPassword.module.scss';
 
 const ResetPassword = () => {
   return (
-    <div>ResetPassword</div>
-  )
-}
+    <>
+      <div className="headerTitle text-bold-1">Reset Password</div>
 
-export default ResetPassword
+      <TextField
+        className={classes.formField}
+        InputLabelProps={{ shrink: true }}
+        fullWidth
+        size="small"
+        label="Password"
+        variant="filled"
+        placeholder="Enter password"
+      />
+
+      <TextField
+        className={classes.formField}
+        InputLabelProps={{ shrink: true }}
+        fullWidth
+        size="small"
+        label="Confirm Password"
+        variant="filled"
+        placeholder="Enter confirm password"
+      />
+
+      <Button className={classes.signUpBtn} variant="outlined" fullWidth>
+        Submit
+      </Button>
+    </>
+  );
+};
+
+export default ResetPassword;
