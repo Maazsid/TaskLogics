@@ -1,0 +1,81 @@
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+@import 'spacing';
+
+.signUpBtn {
+  margin-top: $margin-5;
+
+  &:global(.MuiButton-root) {
+    background-color: $primary-color-400;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    text-transform: capitalize;
+    align-self: center;
+    font-size: 16px;
+    &:hover {
+      border: none;
+    }
+  }
+}
+
+.formField {
+  margin-top: $margin-6;
+  @include flex(row, center, stretch);
+}
+
+.backBtnLink {
+  position: relative;
+  bottom: 32px;
+  left: -8px;
+  width: fit-content;
+}
+
+.backBtn {
+  border: none;
+  background-color: rgba(9, 103, 211, 0.04);
+  & :global .MuiButton-startIcon {
+    margin-right: 0px;
+  }
+  &:hover {
+    border: none;
+  }
+}
+
+.otpInputStyle {
+  width: 60px;
+  height: 60px;
+  margin-right: 18px;
+  border: 1px solid $grey-color-600;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: $primary-font;
+  outline-color: $primary-color-200;
+  @include media-breakpoint('zero', 'xs') {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+.otpText {
+  margin-top: $margin-3;
+  @include text();
+
+  &.alignEnd {
+    @include flex(row, flex-end, center);
+  }
+}
+
+.otpTextHighlight {
+  @include text();
+  margin-left: $margin-1;
+  font-weight: 600;
+  color: $primary-color-500;
+  transition: color 250ms;
+  &:hover {
+    color: $primary-color-700;
+    cursor: pointer;
+  }
+}

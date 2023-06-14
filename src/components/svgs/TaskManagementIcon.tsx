@@ -5,7 +5,7 @@ const TaskManagementIcon = (props: any) => {
     <SvgIcon {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 3800 3000"
+        enableBackground="new 0 0 3800 3000"
         viewBox="0 0 3800 3000"
         id="task-appointment-management"
       >

@@ -14,8 +14,6 @@
 
   @include media-breakpoint('zero', 'lg') {
     width: 90%;
-    margin: 0px auto;
-    margin-top: 30px;
   }
 }
 
@@ -24,6 +22,9 @@
   margin: 0px auto;
   width: 70%;
   height: 85%;
+  @include media-breakpoint('zero', 'lg') {
+    width: 90%;
+  }
 }
 
 .heroSectionGrid {

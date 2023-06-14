@@ -12,7 +12,7 @@ const ForgotPassword = () => {
         </Button>
       </Link>
 
-      <div className="headerTitle text-bold-1">Forgot Password</div>
+      <div className="headerTitle text-bold-1">Change Password</div>
 
       <TextField
         className={classes.formField}
