@@ -18,7 +18,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* Added */
+
     "baseUrl": "src",
+    "typeRoots": ["src/types"],
     "paths": {
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
