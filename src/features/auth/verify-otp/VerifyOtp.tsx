@@ -7,9 +7,14 @@ import { useState } from 'react';
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState<string>();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleOnChange = (res: string) => {
     setOtp(res);
+  };
+
+  const onSubmit = () => {
+    setIsSubmitted(true);
   };
 
   return (
@@ -31,11 +36,13 @@ const VerifyOtp = () => {
         inputClassName={classes.otpInputStyle}
       />
 
-      <Button className={classes.signUpBtn} variant="outlined" fullWidth>
+      {isSubmitted && !(otp?.length === 5) && <p className={classes.otpErrorMsg}>OTP is required.</p>}
+
+      <Button className={classes.signUpBtn} variant="outlined" fullWidth onClick={onSubmit}>
         Verify OTP
       </Button>
       <p className={`${classes.otpText} ${classes.alignEnd}`}>
-        Din't receive the OTP? <span className = {classes.otpTextHighlight}>Resend OTP</span>
+        Din't receive the OTP? <span className={classes.otpTextHighlight}>Resend OTP</span>
       </p>
     </>
   );
