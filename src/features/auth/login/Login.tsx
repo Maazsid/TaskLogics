@@ -63,9 +63,9 @@ const Login = () => {
             label="Password"
             variant="filled"
             placeholder="Enter password"
-            type={showPassword ? 'text' : 'password'}
             error={fieldErrors?.password ? true : false}
             helperText={fieldErrors?.password ? fieldErrors?.password?.message : false}
+            type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
                 <IconButton onClick={() => setShowPassword(!showPassword)}>
