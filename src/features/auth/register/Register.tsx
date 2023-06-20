@@ -1,14 +1,14 @@
-import { Button, IconButton, List, ListItem, TextField } from '@mui/material';
+import { Button, IconButton, TextField } from '@mui/material';
 import classes from './Register.module.scss';
 import GoogleIcon from '@components/svgs/GoogleIcon';
 import FacebookIcon from '@components/svgs/FacebookIcon';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { RegistrationForm, checkPasswordList, registrationSchema } from '../Validators/RegistrationSchema';
+import { RegistrationForm, registrationSchema } from '../Validators/RegistrationSchema';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useState } from 'react';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 
 const Register = () => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({
@@ -34,7 +34,6 @@ const Register = () => {
   });
 
   const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
-
     return;
   };
 
@@ -175,24 +174,7 @@ const Register = () => {
           )}
         />
 
-        <List className={classes.passwordTextList}>
-          {checkPasswordList?.map((p) => {
-            return (
-              <ListItem className={classes.passwordTextListItem} key={p.key}>
-                <div className={classes.passwordTextWrapper}>
-                  <TaskAltIcon
-                    className={`${classes.passwordTextIcon} ${
-                      isPasswordFieldDirty && !fieldErrors?.password?.type?.includes(p?.key)
-                        ? classes.valid
-                        : ''
-                    }`}
-                  />
-                  <p className={classes.passwordText}>{p?.message}</p>
-                </div>
-              </ListItem>
-            );
-          })}
-        </List>
+        <PasswordStrengthList isPasswordFieldDirty={isPasswordFieldDirty} fieldErrors={fieldErrors} />
 
         <Button className={classes.signUpBtn} variant="outlined" type="submit" fullWidth>
           Sign up
