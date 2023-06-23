@@ -20,6 +20,7 @@
     "react-auth-code-input": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.11.2",
     "yup": "^1.2.0"
   },
