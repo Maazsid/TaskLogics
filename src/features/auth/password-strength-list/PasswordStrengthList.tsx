@@ -13,7 +13,11 @@ const PasswordStrengthList = ({ isPasswordFieldDirty, fieldErrors }: PasswordStr
             <div className={classes.passwordTextWrapper}>
               <TaskAltIcon
                 className={`${classes.passwordTextIcon} ${
-                  isPasswordFieldDirty && !fieldErrors?.password?.type?.includes(p?.key) ? classes.valid : ''
+                  isPasswordFieldDirty &&
+                  !fieldErrors?.password?.type?.includes(p?.key) &&
+                  !fieldErrors?.password?.type?.includes('required')
+                    ? classes.valid
+                    : ''
                 }`}
               />
               <p className={classes.passwordText}>{p?.message}</p>

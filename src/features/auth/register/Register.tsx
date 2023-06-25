@@ -1,20 +1,28 @@
-import { Button, IconButton, TextField } from '@mui/material';
+/* eslint-disable react-refresh/only-export-components */
+import { Button, CircularProgress, IconButton, TextField } from '@mui/material';
 import classes from './Register.module.scss';
 import GoogleIcon from '@components/svgs/GoogleIcon';
 import FacebookIcon from '@components/svgs/FacebookIcon';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { RegistrationForm, registrationSchema } from '../Validators/RegistrationSchema';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useState } from 'react';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
+import { useMutation } from 'react-query';
+import { registerUser } from 'api/api';
+import withSnackbar, { ShowNotification } from '@components/withSnackbar';
+import { RegisterReq } from 'api/models/register/register-req.model';
 
-const Register = () => {
+const Register = ({ showNotification }: RegisterProps) => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({
     showPassword: false,
     showConfirmPassword: false,
   });
+
+  const { isLoading, mutate } = useMutation(registerUser);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -33,8 +41,29 @@ const Register = () => {
     resolver: yupResolver(registrationSchema),
   });
 
-  const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
-    return;
+  const onSubmit: SubmitHandler<RegistrationForm> = (formData) => {
+    const { firstName, lastName, email, password } = formData || {};
+
+    const requestBody: RegisterReq = {
+      firstName: firstName?.trim(),
+      lastName: lastName?.trim(),
+      email: email?.trim(),
+      password: password?.trim(),
+    };
+
+    mutate(requestBody, {
+      onSuccess: (res) => {
+        navigate('/verify-otp', {
+          state: {
+            otpToken: res?.otpToken,
+          },
+        });
+      },
+      onError: (error: any) => {
+        const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        showNotification(errorMessage);
+      },
+    });
   };
 
   const isPasswordFieldDirty = getFieldState('password')?.isDirty;
@@ -176,7 +205,14 @@ const Register = () => {
 
         <PasswordStrengthList isPasswordFieldDirty={isPasswordFieldDirty} fieldErrors={fieldErrors} />
 
-        <Button className={classes.signUpBtn} variant="outlined" type="submit" fullWidth>
+        <Button
+          className={classes.signUpBtn}
+          variant="outlined"
+          type="submit"
+          fullWidth
+          disabled={isLoading}
+          endIcon={isLoading && <CircularProgress className={classes.signUpBtnSpinner} size={20} />}
+        >
           Sign up
         </Button>
       </form>
@@ -185,13 +221,14 @@ const Register = () => {
       </div>
 
       <div className={classes.socialBtnWrapper}>
-        <Button className={classes.btn} variant="outlined">
+        <Button className={classes.btn} variant="outlined" disabled={isLoading}>
           Sign in as guest
         </Button>
         <Button
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
           startIcon={<GoogleIcon />}
+          disabled={isLoading}
         >
           Sign up with Google
         </Button>
@@ -199,6 +236,7 @@ const Register = () => {
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
           startIcon={<FacebookIcon />}
+          disabled={isLoading}
         >
           Sign up with Facebook
         </Button>
@@ -214,4 +252,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withSnackbar(Register);
+
+interface RegisterProps {
+  showNotification: ShowNotification;
+}

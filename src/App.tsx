@@ -9,6 +9,7 @@ import AuthLayout from '@features/main-layout/auth-layout/AuthLayout';
 import VerifyOtp from '@features/auth/verify-otp/VerifyOtp';
 import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
 import ResetPassword from '@features/auth/reset-password/ResetPassword';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const router = createBrowserRouter([
   {
@@ -66,9 +67,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
     <ThemeProvider theme={lightTheme}>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
