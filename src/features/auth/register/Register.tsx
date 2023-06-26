@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { Button, CircularProgress, IconButton, TextField } from '@mui/material';
 import classes from './Register.module.scss';
 import GoogleIcon from '@components/svgs/GoogleIcon';
@@ -15,7 +14,7 @@ import { registerUser } from 'api/api';
 import withSnackbar, { ShowNotification } from '@components/withSnackbar';
 import { RegisterReq } from 'api/models/register/register-req.model';
 
-const Register = ({ showNotification }: RegisterProps) => {
+const RegisterComponent = ({ showNotification }: RegisterProps) => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({
     showPassword: false,
     showConfirmPassword: false,
@@ -56,6 +55,7 @@ const Register = ({ showNotification }: RegisterProps) => {
         navigate('/verify-otp', {
           state: {
             otpToken: res?.otpToken,
+            email: email?.trim(),
           },
         });
       },
@@ -252,7 +252,9 @@ const Register = ({ showNotification }: RegisterProps) => {
   );
 };
 
-export default withSnackbar(Register);
+const Register = withSnackbar(RegisterComponent);
+
+export default Register;
 
 interface RegisterProps {
   showNotification: ShowNotification;
