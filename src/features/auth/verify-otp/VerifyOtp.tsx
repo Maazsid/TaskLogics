@@ -1,51 +1,126 @@
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Button, CircularProgress } from '@mui/material';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import classes from './VerifyOtp.module.scss';
 import AuthCode from 'react-auth-code-input';
 import { useState } from 'react';
+import { useMutation } from 'react-query';
+import { resendOtp, verifyOtpCode } from 'api/api';
+import { VerifyOtpReq } from 'api/models/verify-otp/verify-otp-req.model';
+import { VerificationTypeEnum } from 'enums/verification-type.enum';
+import withSnackbar, { ShowNotification } from '@components/withSnackbar';
+import useCountdownTimer from 'hooks/useCountdownTimer';
 
-const VerifyOtp = () => {
-  const [otp, setOtp] = useState<string>();
+const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
+  const [otp, setOtp] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { countdownTimer, isCountdownTimerOn, setIsCountdownTimerOn } = useCountdownTimer(60);
+
+  const { state: routerState }: VerifyOtpLocationState = useLocation();
+  const navigate = useNavigate();
+
+  const { isLoading: isVerifyOtpLoading, mutate: verifyOtpCodeReq } = useMutation(verifyOtpCode);
+  const { isLoading: isResendOtpLoading, mutate: resendOtpReq } = useMutation(resendOtp);
+
+  const isLoading = isVerifyOtpLoading || isResendOtpLoading;
+
+  const onSubmit = () => {
+    setIsSubmitted(true);
+
+    if (otp?.length < 6) return;
+
+    const requestBody: VerifyOtpReq = {
+      otp: otp,
+      verificationType: VerificationTypeEnum.Login,
+    };
+
+    const mutationParms = {
+      requestBody,
+      otpToken: routerState?.otpToken,
+    };
+
+    verifyOtpCodeReq(mutationParms, {
+      onSuccess: () => {
+        navigate('/dashboard', { replace: true });
+      },
+      onError: (error: any) => {
+        const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        showNotification(errorMessage);
+      },
+    });
+  };
+
+  const onResendOtp = () => {
+    setIsCountdownTimerOn(true);
+
+    resendOtpReq(routerState?.otpToken, {
+      onSuccess: () => {
+        showNotification('OTP resent successfully!', 'success');
+      },
+      onError: (error: any) => {
+        const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        showNotification(errorMessage);
+      },
+    });
+  };
 
   const handleOnChange = (res: string) => {
     setOtp(res);
   };
 
-  const onSubmit = () => {
-    setIsSubmitted(true);
-  };
+  if (!routerState?.otpToken) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <>
-      <Link className={classes.backBtnLink} to="/forgot-password">
-        <Button className={classes.backBtn} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-          Back
-        </Button>
-      </Link>
-
       <div className="headerTitle text-bold-1">OTP Verification</div>
 
-      <p className={classes.otpText}>Enter OTP sent to your email at maaz.d.is@gmail.com</p>
+      <p className={classes.otpText}>Enter OTP sent to your email at {routerState?.email}</p>
 
       <AuthCode
         onChange={handleOnChange}
-        length={5}
+        length={6}
         containerClassName={classes.formField}
         inputClassName={classes.otpInputStyle}
       />
 
-      {isSubmitted && !(otp?.length === 5) && <p className={classes.otpErrorMsg}>OTP is required.</p>}
+      {isSubmitted && !(otp?.length === 6) && <p className={classes.otpErrorMsg}>OTP is required.</p>}
 
-      <Button className={classes.signUpBtn} variant="outlined" fullWidth onClick={onSubmit}>
+      <Button
+        className={classes.signUpBtn}
+        variant="outlined"
+        fullWidth
+        endIcon={isLoading && <CircularProgress className={classes.signUpBtnSpinner} size={20} />}
+        disabled={isLoading}
+        onClick={onSubmit}
+      >
         Verify OTP
       </Button>
       <p className={`${classes.otpText} ${classes.alignEnd}`}>
-        Din't receive the OTP? <span className={classes.otpTextHighlight}>Resend OTP</span>
+        Din't receive the OTP?{' '}
+        {isCountdownTimerOn ? (
+          <span className={classes.resendTimerText}>Resend OTP in {countdownTimer}</span>
+        ) : (
+          <button className={classes.otpTextHighlight} disabled={isLoading} onClick={onResendOtp}>
+            Resend OTP
+          </button>
+        )}
       </p>
     </>
   );
 };
 
+const VerifyOtp = withSnackbar(VerifyOtpComponent);
+
 export default VerifyOtp;
+
+interface VerifyOtpProps {
+  showNotification: ShowNotification;
+}
+
+interface VerifyOtpLocationState {
+  state: {
+    otpToken: string;
+    email: string;
+  };
+}
