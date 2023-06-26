@@ -53,11 +53,11 @@ yup.addMethod(string, 'checkPasswordStrength', function checkPasswordStrength() 
 });
 
 export const registrationSchema = yup.object({
-  firstName: string().required('First name is required'),
-  lastName: string().required('Last name is required'),
-  email: string().required('Email is required').email('Enter valid email'),
-  password: string().required('Password is required').checkPasswordStrength(),
-  confirmPassword: string().required('Confirm password is required').isPasswordMatch(),
+  firstName: string().trim().required('First name is required'),
+  lastName: string().trim().required('Last name is required'),
+  email: string().trim().required('Email is required').email('Enter valid email'),
+  password: string().trim().required('Password is required').checkPasswordStrength(),
+  confirmPassword: string().trim().required('Confirm password is required').isPasswordMatch(),
 });
 
 export interface RegistrationForm extends yup.InferType<typeof registrationSchema> {}

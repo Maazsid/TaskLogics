@@ -45,100 +45,98 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
     setAnchorEl(null);
   };
 
+  if (hideLinks) {
+    return (
+      <AppBar className={classes.navbar} position="static">
+        <Toolbar>
+          <div className={classes.logoWrapper}>
+            <Link className={classes.logoLink} to="login" replace>
+              <Box className={classes.logo} component="img" alt="logo" src={logo} />
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+    );
+  }
+
   return (
-    <>
-      {hideLinks && (
-        <AppBar className={classes.navbar} position="static">
-          <Toolbar>
-            <div className={classes.logoWrapper}>
-              <Link className={classes.logoLink} to="dashboard">
-                <Box className={classes.logo} component="img" alt="logo" src={logo} />
-              </Link>
-            </div>
-          </Toolbar>
-        </AppBar>
-      )}
+    <AppBar className={classes.navbar} position="static">
+      <Toolbar>
+        {isMobile && (
+          <IconButton onClick={toggleDrawerHandler}>
+            <MenuIcon />
+          </IconButton>
+        )}
 
-      {!hideLinks && (
-        <AppBar className={classes.navbar} position="static">
-          <Toolbar>
-            {isMobile && (
-              <IconButton onClick={toggleDrawerHandler}>
-                <MenuIcon />
-              </IconButton>
-            )}
-
-            <Drawer open={isDrawerOpen} onClose={toggleDrawerHandler} anchor="left">
-              <List className={classes.drawer}>
-                {pages.map((page, index) => (
-                  <Link to={page.path} key={index}>
-                    <ListItemButton
-                      className={classes.drawerListItem}
-                      selected={location.pathname === page.path}
-                      onClick={toggleDrawerHandler}
-                    >
-                      {page.name}
-                    </ListItemButton>
-                  </Link>
-                ))}
-              </List>
-            </Drawer>
-
-            <div className={classes.logoWrapper}>
-              <Link className={classes.logoLink} to="dashboard">
-                <Box className={classes.logo} component="img" alt="logo" src={logo} />
-              </Link>
-            </div>
-
-            {!isMobile && (
-              <Tabs className={classes.linkList} centered value={location.pathname}>
-                {pages.map((page, index) => (
-                  <Tab
-                    className={classes.linkItem}
-                    component={NavLink}
-                    label={page.name}
-                    disableRipple={true}
-                    key={index}
-                    to={page.path}
-                    value={page.path}
-                  />
-                ))}
-              </Tabs>
-            )}
-
-            {isAuthorized && (
-              <>
-                <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
-                  <AccountCircle className={classes.menuIcon} />
-                </IconButton>
-                <Menu
-                  className={classes.menu}
-                  open={!!anchorEl}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  onClose={closeMenuHandler}
+        <Drawer open={isDrawerOpen} onClose={toggleDrawerHandler} anchor="left">
+          <List className={classes.drawer}>
+            {pages.map((page, index) => (
+              <Link to={page.path} key={index}>
+                <ListItemButton
+                  className={classes.drawerListItem}
+                  selected={location.pathname === page.path}
+                  onClick={toggleDrawerHandler}
                 >
-                  <MenuItem>Logout</MenuItem>
-                </Menu>
-              </>
-            )}
-            {!isAuthorized && (
-              <Button className={classes.loginBtn} variant="outlined">
-                Login
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
-      )}
-    </>
+                  {page.name}
+                </ListItemButton>
+              </Link>
+            ))}
+          </List>
+        </Drawer>
+
+        <div className={classes.logoWrapper}>
+          <Link className={classes.logoLink} to="dashboard">
+            <Box className={classes.logo} component="img" alt="logo" src={logo} />
+          </Link>
+        </div>
+
+        {!isMobile && (
+          <Tabs className={classes.linkList} centered value={location.pathname}>
+            {pages.map((page, index) => (
+              <Tab
+                className={classes.linkItem}
+                component={NavLink}
+                label={page.name}
+                disableRipple={true}
+                key={index}
+                to={page.path}
+                value={page.path}
+              />
+            ))}
+          </Tabs>
+        )}
+
+        {isAuthorized && (
+          <>
+            <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
+              <AccountCircle className={classes.menuIcon} />
+            </IconButton>
+            <Menu
+              className={classes.menu}
+              open={!!anchorEl}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'center',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              onClose={closeMenuHandler}
+            >
+              <MenuItem>Logout</MenuItem>
+            </Menu>
+          </>
+        )}
+        {!isAuthorized && (
+          <Button className={classes.loginBtn} variant="outlined">
+            Login
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
