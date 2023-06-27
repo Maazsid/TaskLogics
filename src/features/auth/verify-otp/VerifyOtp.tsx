@@ -2,18 +2,19 @@ import { Button, CircularProgress } from '@mui/material';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import classes from './VerifyOtp.module.scss';
 import AuthCode from 'react-auth-code-input';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useMutation } from 'react-query';
 import { resendOtp, verifyOtpCode } from 'api/api';
 import { VerifyOtpReq } from 'api/models/verify-otp/verify-otp-req.model';
 import { VerificationTypeEnum } from 'enums/verification-type.enum';
-import withSnackbar, { ShowNotification } from '@components/withSnackbar';
 import useCountdownTimer from 'hooks/useCountdownTimer';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
-const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
+const VerifyOtp = () => {
   const [otp, setOtp] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { countdownTimer, isCountdownTimerOn, setIsCountdownTimerOn } = useCountdownTimer(60);
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
 
   const { state: routerState }: VerifyOtpLocationState = useLocation();
   const navigate = useNavigate();
@@ -30,7 +31,9 @@ const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
 
     const requestBody: VerifyOtpReq = {
       otp: otp,
-      verificationType: VerificationTypeEnum.Login,
+      verificationType: routerState?.isForgotPassword
+        ? VerificationTypeEnum.ForgotPassword
+        : VerificationTypeEnum.Login,
     };
 
     const mutationParms = {
@@ -39,7 +42,17 @@ const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
     };
 
     verifyOtpCodeReq(mutationParms, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        if (routerState?.isForgotPassword) {
+          navigate('/reset-password', {
+            replace: true,
+            state: {
+              resetPasswordToken: res?.resetPasswordToken,
+            },
+          });
+          return;
+        }
+
         navigate('/dashboard', { replace: true });
       },
       onError: (error: any) => {
@@ -110,17 +123,12 @@ const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
   );
 };
 
-const VerifyOtp = withSnackbar(VerifyOtpComponent);
-
 export default VerifyOtp;
-
-interface VerifyOtpProps {
-  showNotification: ShowNotification;
-}
 
 interface VerifyOtpLocationState {
   state: {
     otpToken: string;
     email: string;
+    isForgotPassword?: boolean;
   };
 }

@@ -5,17 +5,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm, loginSchema } from '../Validators/LoginSchema';
 import { useMutation } from 'react-query';
 import { loginUser } from 'api/api';
 import { LoginReq } from 'api/models/login/login-req';
-import withSnackbar, { ShowNotification } from '@components/withSnackbar';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
-const LoginComponent = ({ showNotification }: LoginProps) => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { isLoading, mutate } = useMutation(loginUser);
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
 
   const navigate = useNavigate();
 
@@ -160,10 +161,4 @@ const LoginComponent = ({ showNotification }: LoginProps) => {
   );
 };
 
-const Login = withSnackbar(LoginComponent);
-
 export default Login;
-
-interface LoginProps {
-  showNotification: ShowNotification;
-}

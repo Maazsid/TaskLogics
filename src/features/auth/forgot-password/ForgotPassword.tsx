@@ -1,12 +1,22 @@
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import classes from './ForgotPassword.module.scss';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ForgotPasswordForm, forgotPasswordSchema } from '../Validators/ForgotPasswordSchema';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { forgotPassword } from 'api/api';
+import { ForgotPasswordReq } from 'api/models/forgot-password/forgot-password-req.model';
+import { useContext } from 'react';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
 const ForgotPassword = () => {
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
+
+  const { isLoading, mutate } = useMutation(forgotPassword);
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -19,8 +29,28 @@ const ForgotPassword = () => {
     resolver: yupResolver(forgotPasswordSchema),
   });
 
-  const onSubmit: SubmitHandler<ForgotPasswordForm> = (data) => {
-    return;
+  const onSubmit: SubmitHandler<ForgotPasswordForm> = (formData) => {
+    const { email } = formData || {};
+
+    const reqBody: ForgotPasswordReq = {
+      email: email?.trim(),
+    };
+
+    mutate(reqBody, {
+      onSuccess: (res) => {
+        navigate('/verify-otp', {
+          state: {
+            otpToken: res?.otpToken,
+            email: email?.trim(),
+            isForgotPassword: true,
+          },
+        });
+      },
+      onError: (error: any) => {
+        const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        showNotification(errorMessage);
+      },
+    });
   };
 
   return (
@@ -53,7 +83,14 @@ const ForgotPassword = () => {
           )}
         />
 
-        <Button className={classes.signUpBtn} variant="outlined" fullWidth type="submit">
+        <Button
+          className={classes.signUpBtn}
+          variant="outlined"
+          fullWidth
+          type="submit"
+          disabled={isLoading}
+          endIcon={isLoading && <CircularProgress className={classes.signUpBtnSpinner} size={20} />}
+        >
           Submit
         </Button>
       </form>
