@@ -1,16 +1,23 @@
 import FacebookIcon from '@components/svgs/FacebookIcon';
 import GoogleIcon from '@components/svgs/GoogleIcon';
-import { TextField, Button, IconButton } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { TextField, Button, IconButton, CircularProgress } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm, loginSchema } from '../Validators/LoginSchema';
+import { useMutation } from 'react-query';
+import { loginUser } from 'api/api';
+import { LoginReq } from 'api/models/login/login-req';
+import withSnackbar, { ShowNotification } from '@components/withSnackbar';
 
-const Login = () => {
+const LoginComponent = ({ showNotification }: LoginProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { isLoading, mutate } = useMutation(loginUser);
+
+  const navigate = useNavigate();
 
   const {
     control,
@@ -24,8 +31,28 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    return;
+  const onSubmit: SubmitHandler<LoginForm> = (formData) => {
+    const { email, password } = formData || {};
+
+    const requestBody: LoginReq = {
+      email: email?.trim(),
+      password: password?.trim(),
+    };
+
+    mutate(requestBody, {
+      onSuccess: (res) => {
+        navigate('/verify-otp', {
+          state: {
+            otpToken: res?.otpToken,
+            email: email?.trim(),
+          },
+        });
+      },
+      onError: (error: any) => {
+        const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        showNotification(errorMessage);
+      },
+    });
   };
 
   return (
@@ -86,7 +113,14 @@ const Login = () => {
         <p className={classes.forgotPasswordText}>Forgot password?</p>
       </Link>
 
-      <Button className={classes.signUpBtn} variant="outlined" fullWidth type="submit">
+      <Button
+        className={classes.signUpBtn}
+        variant="outlined"
+        fullWidth
+        type="submit"
+        disabled={isLoading}
+        endIcon={isLoading && <CircularProgress className={classes.signUpBtnSpinner} size={20} />}
+      >
         Sign in
       </Button>
 
@@ -95,13 +129,14 @@ const Login = () => {
       </div>
 
       <div className={classes.socialBtnWrapper}>
-        <Button className={classes.btn} variant="outlined">
+        <Button className={classes.btn} variant="outlined" disabled={isLoading}>
           Sign in as guest
         </Button>
         <Button
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
           startIcon={<GoogleIcon />}
+          disabled={isLoading}
         >
           Sign in with Google
         </Button>
@@ -109,6 +144,7 @@ const Login = () => {
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
           startIcon={<FacebookIcon />}
+          disabled={isLoading}
         >
           Sign in with Facebook
         </Button>
@@ -124,4 +160,10 @@ const Login = () => {
   );
 };
 
+const Login = withSnackbar(LoginComponent);
+
 export default Login;
+
+interface LoginProps {
+  showNotification: ShowNotification;
+}
