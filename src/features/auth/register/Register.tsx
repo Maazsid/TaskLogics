@@ -7,18 +7,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { RegistrationForm, registrationSchema } from '../Validators/RegistrationSchema';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 import { useMutation } from 'react-query';
 import { registerUser } from 'api/api';
-import withSnackbar, { ShowNotification } from '@components/withSnackbar';
 import { RegisterReq } from 'api/models/register/register-req.model';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
-const RegisterComponent = ({ showNotification }: RegisterProps) => {
+const Register = () => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({
     showPassword: false,
     showConfirmPassword: false,
   });
+
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
 
   const { isLoading, mutate } = useMutation(registerUser);
   const navigate = useNavigate();
@@ -252,10 +254,4 @@ const RegisterComponent = ({ showNotification }: RegisterProps) => {
   );
 };
 
-const Register = withSnackbar(RegisterComponent);
-
 export default Register;
-
-interface RegisterProps {
-  showNotification: ShowNotification;
-}

@@ -3,16 +3,17 @@ import classes from './ResetPassword.module.scss';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ResetPasswordSchema, resetPasswordSchema } from '../Validators/ResetPasswordSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { resetPassword } from 'api/api';
 import { ResetPasswordReq } from 'api/models/reset-password/reset-password-req.model';
-import withSnackbar, { ShowNotification } from '@components/withSnackbar';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
-const ResetPasswordComponent = ({ showNotification }: ResetPasswordProps) => {
+const ResetPassword = () => {
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
   const { state: routerState }: ResetPasswordLocationState = useLocation();
 
   const navigate = useNavigate();
@@ -160,16 +161,10 @@ const ResetPasswordComponent = ({ showNotification }: ResetPasswordProps) => {
   );
 };
 
-const ResetPassword = withSnackbar(ResetPasswordComponent);
-
 export default ResetPassword;
 
 interface ResetPasswordLocationState {
   state: {
     resetPasswordToken: string;
   };
-}
-
-interface ResetPasswordProps {
-  showNotification: ShowNotification;
 }

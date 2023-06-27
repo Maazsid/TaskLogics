@@ -8,9 +8,12 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { forgotPassword } from 'api/api';
 import { ForgotPasswordReq } from 'api/models/forgot-password/forgot-password-req.model';
-import withSnackbar, { ShowNotification } from '@components/withSnackbar';
+import { useContext } from 'react';
+import { NotificationContext, NotificationContextType } from 'context/notificationContext';
 
-const ForgotPasswordComponent = ({ showNotification }: ForgotPasswordProps) => {
+const ForgotPassword = () => {
+  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
+
   const { isLoading, mutate } = useMutation(forgotPassword);
   const navigate = useNavigate();
 
@@ -95,10 +98,4 @@ const ForgotPasswordComponent = ({ showNotification }: ForgotPasswordProps) => {
   );
 };
 
-const ForgotPassword = withSnackbar(ForgotPasswordComponent);
-
 export default ForgotPassword;
-
-interface ForgotPasswordProps {
-  showNotification: ShowNotification;
-}
