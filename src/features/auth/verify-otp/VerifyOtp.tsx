@@ -30,7 +30,9 @@ const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
 
     const requestBody: VerifyOtpReq = {
       otp: otp,
-      verificationType: VerificationTypeEnum.Login,
+      verificationType: routerState?.isForgotPassword
+        ? VerificationTypeEnum.ForgotPassword
+        : VerificationTypeEnum.Login,
     };
 
     const mutationParms = {
@@ -39,7 +41,17 @@ const VerifyOtpComponent = ({ showNotification }: VerifyOtpProps) => {
     };
 
     verifyOtpCodeReq(mutationParms, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        if (routerState?.isForgotPassword) {
+          navigate('/reset-password', {
+            replace: true,
+            state: {
+              resetPasswordToken: res?.resetPasswordToken,
+            },
+          });
+          return;
+        }
+
         navigate('/dashboard', { replace: true });
       },
       onError: (error: any) => {
@@ -122,5 +134,6 @@ interface VerifyOtpLocationState {
   state: {
     otpToken: string;
     email: string;
+    isForgotPassword?: boolean;
   };
 }
