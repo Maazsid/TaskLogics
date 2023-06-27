@@ -24,6 +24,12 @@
   }
 }
 
+.signUpBtnSpinner {
+  &:global(.MuiCircularProgress-root) {
+    color: #fff;
+  }
+}
+
 .otherChoicesWrapper {
   position: relative;
   margin-top: $margin-5;

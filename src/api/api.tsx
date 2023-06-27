@@ -1,9 +1,16 @@
 import { axiosClient } from './apiClient';
 import { BaseApiResponse } from './models/base-api-res.model';
+import { LoginReq } from './models/login/login-req';
+import { LoginRes } from './models/login/login-res';
 import { RegisterReq } from './models/register/register-req.model';
 import { RegisterRes } from './models/register/register-res.model';
 import { VerifyOtpReq } from './models/verify-otp/verify-otp-req.model';
 
+export const loginUser = async (reqBody: LoginReq): Promise<LoginRes> => {
+  const res = await axiosClient.post('auth/login', reqBody);
+  const data: BaseApiResponse<LoginRes> = res?.data;
+  return data?.data;
+};
 export const registerUser = async (reqBody: RegisterReq): Promise<RegisterRes> => {
   const res = await axiosClient.post('auth/register', reqBody);
   const data: BaseApiResponse<RegisterRes> = res?.data;
