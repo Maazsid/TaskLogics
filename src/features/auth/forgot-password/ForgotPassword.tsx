@@ -9,7 +9,7 @@ import { useMutation } from 'react-query';
 import { forgotPassword } from 'api/api';
 import { ForgotPasswordReq } from 'api/models/forgot-password/forgot-password-req.model';
 import { useContext } from 'react';
-import { NotificationContext, NotificationContextType } from 'context/notificationContext';
+import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
 
 const ForgotPassword = () => {
   const { showNotification } = useContext(NotificationContext) as NotificationContextType;

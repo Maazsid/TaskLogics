@@ -12,7 +12,7 @@ import PasswordStrengthList from '../password-strength-list/PasswordStrengthList
 import { useMutation } from 'react-query';
 import { registerUser } from 'api/api';
 import { RegisterReq } from 'api/models/register/register-req.model';
-import { NotificationContext, NotificationContextType } from 'context/notificationContext';
+import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
 
 const Register = () => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({

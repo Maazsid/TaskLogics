@@ -10,7 +10,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { resetPassword } from 'api/api';
 import { ResetPasswordReq } from 'api/models/reset-password/reset-password-req.model';
-import { NotificationContext, NotificationContextType } from 'context/notificationContext';
+import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
 
 const ResetPassword = () => {
   const { showNotification } = useContext(NotificationContext) as NotificationContextType;

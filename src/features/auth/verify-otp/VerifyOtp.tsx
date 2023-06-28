@@ -8,7 +8,7 @@ import { resendOtp, verifyOtpCode } from 'api/api';
 import { VerifyOtpReq } from 'api/models/verify-otp/verify-otp-req.model';
 import { VerificationTypeEnum } from 'enums/verification-type.enum';
 import useCountdownTimer from 'hooks/useCountdownTimer';
-import { NotificationContext, NotificationContextType } from 'context/notificationContext';
+import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState<string>('');

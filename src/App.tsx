@@ -12,7 +12,7 @@ import ResetPassword from '@features/auth/reset-password/ResetPassword';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Alert, Snackbar } from '@mui/material';
 import { useState } from 'react';
-import { NotificationContext } from 'context/notificationContext';
+import { NotificationContext } from 'context/NotificationContext';
 
 const router = createBrowserRouter([
   {
