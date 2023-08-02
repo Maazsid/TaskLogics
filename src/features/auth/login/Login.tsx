@@ -11,7 +11,7 @@ import { LoginForm, loginSchema } from '../Validators/LoginSchema';
 import { useMutation } from 'react-query';
 import { loginUser } from 'api/api';
 import { LoginReq } from 'api/models/login/login-req';
-import { NotificationContext } from 'context/NotificationContext';
+import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

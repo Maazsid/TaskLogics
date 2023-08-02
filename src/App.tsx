@@ -11,34 +11,41 @@ import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
 import ResetPassword from '@features/auth/reset-password/ResetPassword';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Alert, Snackbar } from '@mui/material';
-import { useCallback, useMemo, useState } from 'react';
+import { Suspense, lazy, useCallback, useMemo, useState } from 'react';
 import { NotificationContext } from 'context/NotificationContext';
+import ProtectedRoute from '@features/protected-routes/ProtectedRoute';
+
+const Dashboard = lazy(() => import('@features/dashboard/Dashboard'));
+const AboutUs = lazy(() => import('@features/about-us/AboutUs'));
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: '*',
-        element: <Navigate to="/dashboard" replace />,
-      },
-      {
-        path: '/dashboard',
-        lazy: async () => {
-          const { Dashboard } = await import('@features/dashboard/Dashboard');
-          return {
-            Component: Dashboard,
-          };
-        },
-      },
-      {
-        path: '/about',
-        lazy: async () => {
-          const { AboutUs } = await import('@features/about-us/AboutUs');
-          return {
-            Component: AboutUs,
-          };
-        },
+        element: <MainLayout />,
+        children: [
+          {
+            path: '*',
+            element: <Navigate to="/dashboard" replace />,
+          },
+          {
+            path: '/dashboard',
+            element: (
+              <Suspense fallback={<></>}>
+                <Dashboard />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/about',
+            element: (
+              <Suspense fallback={<></>}>
+                <AboutUs />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },
