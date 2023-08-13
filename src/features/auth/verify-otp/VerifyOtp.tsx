@@ -2,19 +2,19 @@ import { Button, CircularProgress } from '@mui/material';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import classes from './VerifyOtp.module.scss';
 import AuthCode from 'react-auth-code-input';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { resendOtp, verifyOtpCode } from 'api/api';
 import { VerifyOtpReq } from 'api/models/verify-otp/verify-otp-req.model';
 import { VerificationTypeEnum } from 'enums/verification-type.enum';
 import useCountdownTimer from 'hooks/useCountdownTimer';
-import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
+import { useNotificationStore } from 'store/store';
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { countdownTimer, isCountdownTimerOn, setIsCountdownTimerOn } = useCountdownTimer(60);
-  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
+  const showNotification = useNotificationStore((state) => state.showNotification);
 
   const { state: routerState }: VerifyOtpLocationState = useLocation();
   const navigate = useNavigate();

@@ -11,9 +11,10 @@ import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
 import ResetPassword from '@features/auth/reset-password/ResetPassword';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Alert, Snackbar } from '@mui/material';
-import { Suspense, lazy, useCallback, useMemo, useState } from 'react';
-import { NotificationContext } from 'context/NotificationContext';
+import { Suspense, lazy, useMemo } from 'react';
 import ProtectedRoute from '@features/protected-routes/ProtectedRoute';
+import { useNotificationStore } from 'store/store';
+import { shallow } from 'zustand/shallow';
 
 const Dashboard = lazy(() => import('@features/dashboard/Dashboard'));
 const AboutUs = lazy(() => import('@features/about-us/AboutUs'));
@@ -77,19 +78,17 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [severity, setSeverity] = useState<SeverityType>('error');
-
   const queryClient = useMemo(() => new QueryClient(), []);
 
-  const showNotification: ShowNotification = useCallback((message = '', severity: SeverityType = 'error') => {
-    setOpen(true);
-    setSeverity(severity);
-    setMessage(message);
-  }, []);
-
-  const notificationContextValue = useMemo(() => ({ showNotification }), [showNotification]);
+  const { open, severity, message, setOpen } = useNotificationStore(
+    (state) => ({
+      open: state.open,
+      severity: state.severity,
+      message: state.message,
+      setOpen: state.setOpen,
+    }),
+    shallow
+  );
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -102,9 +101,7 @@ function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <QueryClientProvider client={queryClient}>
-        <NotificationContext.Provider value={notificationContextValue}>
-          <RouterProvider router={router} />
-        </NotificationContext.Provider>
+        <RouterProvider router={router} />
         <Snackbar
           open={open}
           autoHideDuration={3000}

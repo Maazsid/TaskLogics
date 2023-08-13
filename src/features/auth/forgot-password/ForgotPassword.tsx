@@ -8,11 +8,10 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { forgotPassword } from 'api/api';
 import { ForgotPasswordReq } from 'api/models/forgot-password/forgot-password-req.model';
-import { useContext } from 'react';
-import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
+import { useNotificationStore } from 'store/store';
 
 const ForgotPassword = () => {
-  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
+  const showNotification = useNotificationStore((state) => state.showNotification);
 
   const { isLoading, mutate } = useMutation(forgotPassword);
   const navigate = useNavigate();

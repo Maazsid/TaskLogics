@@ -7,12 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { RegistrationForm, registrationSchema } from '../Validators/RegistrationSchema';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 import { useMutation } from 'react-query';
 import { registerUser } from 'api/api';
 import { RegisterReq } from 'api/models/register/register-req.model';
-import { NotificationContext, NotificationContextType } from 'context/NotificationContext';
+import { useNotificationStore } from 'store/store';
 
 const Register = () => {
   const [{ showPassword, showConfirmPassword }, setShowPassword] = useState({
@@ -20,7 +20,7 @@ const Register = () => {
     showConfirmPassword: false,
   });
 
-  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
+  const showNotification = useNotificationStore((state) => state.showNotification);
 
   const { isLoading, mutate } = useMutation(registerUser);
   const navigate = useNavigate();
