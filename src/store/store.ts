@@ -1,3 +1,4 @@
+import { AuthStore } from './models/auth-store';
 import { NotificationStore } from './models/notification-store';
 import { createWithEqualityFn } from 'zustand/traditional';
 
@@ -20,6 +21,16 @@ export const useNotificationStore = createWithEqualityFn<NotificationStore>(
           open: isOpen,
         };
       }),
+  }),
+  Object.is
+);
+
+export const useAuthStore = createWithEqualityFn<AuthStore>(
+  (set) => ({
+    isLoggedIn: false,
+    accessToken: '',
+    setAccessToken: (accessToken) => set(() => ({ accessToken })),
+    setIsLoggedIn: (isLoggedIn) => set(() => ({ isLoggedIn })),
   }),
   Object.is
 );
