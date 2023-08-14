@@ -4,7 +4,6 @@ import {
   Tabs,
   Tab,
   IconButton,
-  Button,
   Menu,
   MenuItem,
   Drawer,
@@ -31,7 +30,6 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
 
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width :575px )');
-  const isAuthorized = false;
 
   const toggleDrawerHandler = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -106,35 +104,27 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
           </Tabs>
         )}
 
-        {isAuthorized && (
-          <>
-            <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
-              <AccountCircle className={classes.menuIcon} />
-            </IconButton>
-            <Menu
-              className={classes.menu}
-              open={!!anchorEl}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'center',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              onClose={closeMenuHandler}
-            >
-              <MenuItem>Logout</MenuItem>
-            </Menu>
-          </>
-        )}
-        {!isAuthorized && (
-          <Button className={classes.loginBtn} variant="outlined">
-            Login
-          </Button>
-        )}
+        <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
+          <AccountCircle className={classes.menuIcon} />
+        </IconButton>
+
+        <Menu
+          className={classes.menu}
+          open={!!anchorEl}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          onClose={closeMenuHandler}
+        >
+          <MenuItem>Logout</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
