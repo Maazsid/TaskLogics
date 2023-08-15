@@ -9,12 +9,14 @@ import AuthLayout from '@features/main-layout/auth-layout/AuthLayout';
 import VerifyOtp from '@features/auth/verify-otp/VerifyOtp';
 import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
 import ResetPassword from '@features/auth/reset-password/ResetPassword';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, useMutation } from 'react-query';
 import { Alert, Snackbar } from '@mui/material';
-import { Suspense, lazy, useMemo } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import ProtectedRoute from '@features/protected-routes/ProtectedRoute';
-import { useNotificationStore } from 'store/store';
+import { useAuthStore, useNotificationStore } from 'store/store';
 import { shallow } from 'zustand/shallow';
+import { getAccessToken } from 'api/api';
+import AuthProtectedRoute from '@features/protected-routes/AuthProtectedRoute';
 
 const Dashboard = lazy(() => import('@features/dashboard/Dashboard'));
 const AboutUs = lazy(() => import('@features/about-us/AboutUs'));
@@ -51,34 +53,70 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <AuthLayout />,
+    element: <AuthProtectedRoute />,
     children: [
       {
-        element: <Login />,
-        path: '/login',
-      },
-      {
-        element: <Register />,
-        path: '/register',
-      },
-      {
-        element: <VerifyOtp />,
-        path: '/verify-otp',
-      },
-      {
-        element: <ForgotPassword />,
-        path: '/forgot-password',
-      },
-      {
-        element: <ResetPassword />,
-        path: '/reset-password',
+        element: <AuthLayout />,
+        children: [
+          {
+            element: <Login />,
+            path: '/login',
+          },
+          {
+            element: <Register />,
+            path: '/register',
+          },
+          {
+            element: <VerifyOtp />,
+            path: '/verify-otp',
+          },
+          {
+            element: <ForgotPassword />,
+            path: '/forgot-password',
+          },
+          {
+            element: <ResetPassword />,
+            path: '/reset-password',
+          },
+        ],
       },
     ],
   },
 ]);
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useMemo(() => new QueryClient(), []);
+  const isMounted = useRef(false);
+
+  const { setIsLoggedIn, setAccessToken } = useAuthStore(
+    (state) => ({
+      setIsLoggedIn: state.setIsLoggedIn,
+      setAccessToken: state.setAccessToken,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    if (isMounted.current) return;
+
+    setIsLoading(true);
+
+    const fetchAccessToken = async () => {
+      try {
+        const res = await getAccessToken();
+        setIsLoggedIn(true);
+        setAccessToken(res?.accessToken);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAccessToken();
+
+    isMounted.current = true;
+  }, []);
 
   const { open, severity, message, setOpen } = useNotificationStore(
     (state) => ({
@@ -101,18 +139,23 @@ function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          disableWindowBlurListener={true}
-        >
-          <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }} variant="filled">
-            {message}
-          </Alert>
-        </Snackbar>
+        {!isLoading && (
+          <>
+            {' '}
+            <RouterProvider router={router} />
+            <Snackbar
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              disableWindowBlurListener={true}
+            >
+              <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }} variant="filled">
+                {message}
+              </Alert>
+            </Snackbar>
+          </>
+        )}
       </QueryClientProvider>
     </ThemeProvider>
   );
