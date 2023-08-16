@@ -77,6 +77,20 @@ export const resendOtp = async (otpToken: string): Promise<null> => {
   return data?.data;
 };
 
+export const logoutUser = async (): Promise<null> => {
+  const res = await axiosClient.post(
+    'auth/logout',
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+
+  const data: BaseApiResponse<null> = res?.data;
+
+  return data?.data;
+};
+
 export const getAccessToken = async (): Promise<AccessTokenRes> => {
   const res = await axiosClient.post(
     'auth/refresh-token',

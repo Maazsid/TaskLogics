@@ -86,8 +86,9 @@ const router = createBrowserRouter([
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const queryClient = useMemo(() => new QueryClient(), []);
   const isMounted = useRef(false);
+
+  const queryClient = useMemo(() => new QueryClient(), []);
 
   const { setIsLoggedIn, setAccessToken } = useAuthStore(
     (state) => ({

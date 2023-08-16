@@ -15,9 +15,12 @@ import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '@assets/images/logo.png';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 import classes from './Navbar.module.scss';
+import { useMutation } from 'react-query';
+import { logoutUser } from 'api/api';
+import { useAuthStore } from 'store/store';
 
 const Navbar = ({ hideLinks }: NavbarProps) => {
   const pages: Array<{ name: string; path: string }> = [
@@ -29,7 +32,14 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width :575px )');
+  const { isLoading, mutate } = useMutation(logoutUser);
+
+  const { setAccessToken, setIsLoggedIn } = useAuthStore((state) => ({
+    setAccessToken: state.setAccessToken,
+    setIsLoggedIn: state.setIsLoggedIn,
+  }));
 
   const toggleDrawerHandler = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -41,6 +51,16 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
 
   const closeMenuHandler = () => {
     setAnchorEl(null);
+  };
+
+  const onLogout = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        setAccessToken('');
+        setIsLoggedIn(false);
+        navigate('/login', { replace: true });
+      },
+    });
   };
 
   if (hideLinks) {
@@ -123,7 +143,7 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
           }}
           onClose={closeMenuHandler}
         >
-          <MenuItem>Logout</MenuItem>
+          <MenuItem disabled = {isLoading} onClick={onLogout}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
