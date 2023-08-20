@@ -1,4 +1,5 @@
 import { axiosClient } from './apiClient';
+import { AccessTokenRes } from './models/access-token/access-token-res.model';
 import { BaseApiResponse } from './models/base-api-res.model';
 import { ForgotPasswordReq } from './models/forgot-password/forgot-password-req.model';
 import { ForgotPasswordRes } from './models/forgot-password/forgot-password-res.model';
@@ -15,6 +16,7 @@ export const loginUser = async (reqBody: LoginReq): Promise<LoginRes> => {
   const data: BaseApiResponse<LoginRes> = res?.data;
   return data?.data;
 };
+
 export const registerUser = async (reqBody: RegisterReq): Promise<RegisterRes> => {
   const res = await axiosClient.post('auth/register', reqBody);
   const data: BaseApiResponse<RegisterRes> = res?.data;
@@ -71,6 +73,34 @@ export const resendOtp = async (otpToken: string): Promise<null> => {
   );
 
   const data: BaseApiResponse<null> = res?.data;
+
+  return data?.data;
+};
+
+export const logoutUser = async (): Promise<null> => {
+  const res = await axiosClient.post(
+    'auth/logout',
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+
+  const data: BaseApiResponse<null> = res?.data;
+
+  return data?.data;
+};
+
+export const getAccessToken = async (): Promise<AccessTokenRes> => {
+  const res = await axiosClient.post(
+    'auth/refresh-token',
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+
+  const data: BaseApiResponse<AccessTokenRes> = res?.data;
 
   return data?.data;
 };

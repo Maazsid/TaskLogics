@@ -5,19 +5,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm, loginSchema } from '../Validators/LoginSchema';
 import { useMutation } from 'react-query';
 import { loginUser } from 'api/api';
 import { LoginReq } from 'api/models/login/login-req';
-import { NotificationContext } from 'context/NotificationContext';
+import { useNotificationStore } from 'store/store';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { isLoading, mutate } = useMutation(loginUser);
-  const { showNotification } = useContext(NotificationContext) as NotificationContextType;
 
+  const showNotification = useNotificationStore((state) => state.showNotification);
   const navigate = useNavigate();
 
   const {

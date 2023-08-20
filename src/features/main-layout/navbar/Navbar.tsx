@@ -4,7 +4,6 @@ import {
   Tabs,
   Tab,
   IconButton,
-  Button,
   Menu,
   MenuItem,
   Drawer,
@@ -16,9 +15,12 @@ import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '@assets/images/logo.png';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 import classes from './Navbar.module.scss';
+import { useMutation } from 'react-query';
+import { logoutUser } from 'api/api';
+import { useAuthStore } from 'store/store';
 
 const Navbar = ({ hideLinks }: NavbarProps) => {
   const pages: Array<{ name: string; path: string }> = [
@@ -30,8 +32,15 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width :575px )');
-  const isAuthorized = false;
+  const { isLoading, mutate } = useMutation(logoutUser);
+
+  const { setAccessToken, setIsLoggedIn, setIsRefreshTokenIntervalOn } = useAuthStore((state) => ({
+    setAccessToken: state.setAccessToken,
+    setIsLoggedIn: state.setIsLoggedIn,
+    setIsRefreshTokenIntervalOn: state.setIsRefreshTokenIntervalOn,
+  }));
 
   const toggleDrawerHandler = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -43,6 +52,17 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
 
   const closeMenuHandler = () => {
     setAnchorEl(null);
+  };
+
+  const onLogout = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        setAccessToken('');
+        setIsLoggedIn(false);
+        setIsRefreshTokenIntervalOn(false);
+        navigate('/login', { replace: true });
+      },
+    });
   };
 
   if (hideLinks) {
@@ -106,35 +126,29 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
           </Tabs>
         )}
 
-        {isAuthorized && (
-          <>
-            <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
-              <AccountCircle className={classes.menuIcon} />
-            </IconButton>
-            <Menu
-              className={classes.menu}
-              open={!!anchorEl}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'center',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              onClose={closeMenuHandler}
-            >
-              <MenuItem>Logout</MenuItem>
-            </Menu>
-          </>
-        )}
-        {!isAuthorized && (
-          <Button className={classes.loginBtn} variant="outlined">
-            Login
-          </Button>
-        )}
+        <IconButton className={classes.menuIconBtn} onClick={openMenuHandler}>
+          <AccountCircle className={classes.menuIcon} />
+        </IconButton>
+
+        <Menu
+          className={classes.menu}
+          open={!!anchorEl}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          onClose={closeMenuHandler}
+        >
+          <MenuItem disabled={isLoading} onClick={onLogout}>
+            Logout
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

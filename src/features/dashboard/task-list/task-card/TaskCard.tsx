@@ -5,8 +5,6 @@ import {
   AccordionSummary,
   AccordionDetails,
   IconButton,
-  Badge,
-  Chip,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Task from '../task/Task';
