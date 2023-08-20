@@ -19,7 +19,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 import classes from './Navbar.module.scss';
 import { useMutation } from 'react-query';
-import { logoutUser } from 'api/api';
+import { logoutUser } from 'api/auth/auth-api';
 import { useAuthStore } from 'store/store';
 
 const Navbar = ({ hideLinks }: NavbarProps) => {

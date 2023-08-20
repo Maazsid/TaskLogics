@@ -9,8 +9,8 @@ import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm, loginSchema } from '../Validators/LoginSchema';
 import { useMutation } from 'react-query';
-import { loginUser } from 'api/api';
-import { LoginReq } from 'api/models/login/login-req';
+import { loginUser } from 'api/auth/auth-api';
+import { LoginReq } from 'api/auth/models/login/login-req';
 import { useNotificationStore } from 'store/store';
 
 const Login = () => {

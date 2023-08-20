@@ -19,6 +19,9 @@ const TimeTracker = () => {
   };
 
   const toggleIsPlaying = () => {
+    if(!isPlaying) {
+      return;
+    }
     setIsPlaying(!isPlaying);
   };
 
