@@ -30,9 +30,11 @@ export const useAuthStore = createWithEqualityFn<AuthStore>(
     isLoggedIn: false,
     accessToken: '',
     isRefreshTokenIntervalOn: false,
+    navigate: null,
     setAccessToken: (accessToken) => set(() => ({ accessToken })),
     setIsLoggedIn: (isLoggedIn) => set(() => ({ isLoggedIn })),
     setIsRefreshTokenIntervalOn: (isRefreshTokenIntervalOn) => set(() => ({ isRefreshTokenIntervalOn })),
+    setNavigateFunction: (navigate) => set(() => ({ navigate })),
   }),
   Object.is
 );

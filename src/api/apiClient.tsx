@@ -14,3 +14,12 @@ axiosClient.interceptors.request.use((req) => {
 
   return req;
 });
+
+axiosClient.interceptors.response.use((res) => {
+  const { navigate } = useAuthStore.getState() || {};
+
+  if (res?.status === 401 && navigate) {
+    navigate('/login');
+  }
+  return res;
+});
