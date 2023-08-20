@@ -29,8 +29,10 @@ export const useAuthStore = createWithEqualityFn<AuthStore>(
   (set) => ({
     isLoggedIn: false,
     accessToken: '',
+    isRefreshTokenIntervalOn: false,
     setAccessToken: (accessToken) => set(() => ({ accessToken })),
     setIsLoggedIn: (isLoggedIn) => set(() => ({ isLoggedIn })),
+    setIsRefreshTokenIntervalOn: (isRefreshTokenIntervalOn) => set(() => ({ isRefreshTokenIntervalOn })),
   }),
   Object.is
 );

@@ -16,8 +16,12 @@ const VerifyOtp = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { countdownTimer, isCountdownTimerOn, setIsCountdownTimerOn } = useCountdownTimer(60);
   const showNotification = useNotificationStore((state) => state.showNotification);
-  const { setAccessToken, setIsLoggedIn } = useAuthStore(
-    (state) => ({ setAccessToken: state.setAccessToken, setIsLoggedIn: state.setIsLoggedIn }),
+  const { setAccessToken, setIsLoggedIn, setIsRefreshTokenIntervalOn } = useAuthStore(
+    (state) => ({
+      setAccessToken: state.setAccessToken,
+      setIsLoggedIn: state.setIsLoggedIn,
+      setIsRefreshTokenIntervalOn: state.setIsRefreshTokenIntervalOn,
+    }),
     shallow
   );
 
@@ -60,6 +64,7 @@ const VerifyOtp = () => {
 
         setAccessToken(res?.accessToken);
         setIsLoggedIn(true);
+        setIsRefreshTokenIntervalOn(true);
 
         navigate('/dashboard', { replace: true });
       },

@@ -36,9 +36,10 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
   const isMobile = useMediaQuery('(max-width :575px )');
   const { isLoading, mutate } = useMutation(logoutUser);
 
-  const { setAccessToken, setIsLoggedIn } = useAuthStore((state) => ({
+  const { setAccessToken, setIsLoggedIn, setIsRefreshTokenIntervalOn } = useAuthStore((state) => ({
     setAccessToken: state.setAccessToken,
     setIsLoggedIn: state.setIsLoggedIn,
+    setIsRefreshTokenIntervalOn: state.setIsRefreshTokenIntervalOn,
   }));
 
   const toggleDrawerHandler = () => {
@@ -58,6 +59,7 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
       onSuccess: () => {
         setAccessToken('');
         setIsLoggedIn(false);
+        setIsRefreshTokenIntervalOn(false);
         navigate('/login', { replace: true });
       },
     });
@@ -143,7 +145,9 @@ const Navbar = ({ hideLinks }: NavbarProps) => {
           }}
           onClose={closeMenuHandler}
         >
-          <MenuItem disabled = {isLoading} onClick={onLogout}>Logout</MenuItem>
+          <MenuItem disabled={isLoading} onClick={onLogout}>
+            Logout
+          </MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

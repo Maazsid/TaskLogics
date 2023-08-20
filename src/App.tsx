@@ -9,7 +9,7 @@ import AuthLayout from '@features/main-layout/auth-layout/AuthLayout';
 import VerifyOtp from '@features/auth/verify-otp/VerifyOtp';
 import ForgotPassword from '@features/auth/forgot-password/ForgotPassword';
 import ResetPassword from '@features/auth/reset-password/ResetPassword';
-import { QueryClient, QueryClientProvider, useMutation } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Alert, Snackbar } from '@mui/material';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import ProtectedRoute from '@features/protected-routes/ProtectedRoute';
@@ -87,16 +87,20 @@ const router = createBrowserRouter([
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const isMounted = useRef(false);
+  const refreshTokenTimeoutId = useRef(0);
 
   const queryClient = useMemo(() => new QueryClient(), []);
 
-  const { setIsLoggedIn, setAccessToken } = useAuthStore(
-    (state) => ({
-      setIsLoggedIn: state.setIsLoggedIn,
-      setAccessToken: state.setAccessToken,
-    }),
-    shallow
-  );
+  const { setIsLoggedIn, setAccessToken, isRefreshTokenIntervalOn, setIsRefreshTokenIntervalOn } =
+    useAuthStore(
+      (state) => ({
+        setIsLoggedIn: state.setIsLoggedIn,
+        setAccessToken: state.setAccessToken,
+        isRefreshTokenIntervalOn: state.isRefreshTokenIntervalOn,
+        setIsRefreshTokenIntervalOn: state.setIsRefreshTokenIntervalOn,
+      }),
+      shallow
+    );
 
   useEffect(() => {
     if (isMounted.current) return;
@@ -108,6 +112,7 @@ function App() {
         const res = await getAccessToken();
         setIsLoggedIn(true);
         setAccessToken(res?.accessToken);
+        setIsRefreshTokenIntervalOn(true);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -117,7 +122,31 @@ function App() {
     fetchAccessToken();
 
     isMounted.current = true;
-  }, []);
+  }, [setAccessToken, setIsLoggedIn, setIsRefreshTokenIntervalOn]);
+
+  useEffect(() => {
+    const startRefreshTokenInterval = () => {
+      const timeoutTime = 1000 * 60 * 15;
+
+      refreshTokenTimeoutId.current = setTimeout(() => {
+        const fetchAccessToken = async () => {
+          const res = await getAccessToken();
+          setAccessToken(res?.accessToken);
+          startRefreshTokenInterval();
+        };
+
+        fetchAccessToken();
+      }, timeoutTime);
+    };
+
+    if (isRefreshTokenIntervalOn) {
+      startRefreshTokenInterval();
+    } else {
+      clearTimeout(refreshTokenTimeoutId.current);
+    }
+
+    return () => clearTimeout(refreshTokenTimeoutId.current);
+  }, [setAccessToken, isRefreshTokenIntervalOn]);
 
   const { open, severity, message, setOpen } = useNotificationStore(
     (state) => ({
