@@ -89,7 +89,17 @@ function App() {
   const isMounted = useRef(false);
   const refreshTokenTimeoutId = useRef(0);
 
-  const queryClient = useMemo(() => new QueryClient(), []);
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+    []
+  );
 
   const { setIsLoggedIn, setAccessToken, isRefreshTokenIntervalOn, setIsRefreshTokenIntervalOn } =
     useAuthStore(
