@@ -1,6 +1,6 @@
-import { axiosClient } from './apiClient';
+import { axiosClient } from '../apiClient';
 import { AccessTokenRes } from './models/access-token/access-token-res.model';
-import { BaseApiResponse } from './models/base-api-res.model';
+import { BaseApiResponse } from '../models/base-api-res.model';
 import { ForgotPasswordReq } from './models/forgot-password/forgot-password-req.model';
 import { ForgotPasswordRes } from './models/forgot-password/forgot-password-res.model';
 import { LoginReq } from './models/login/login-req';

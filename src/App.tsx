@@ -15,7 +15,7 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import ProtectedRoute from '@features/protected-routes/ProtectedRoute';
 import { useAuthStore, useNotificationStore } from 'store/store';
 import { shallow } from 'zustand/shallow';
-import { getAccessToken } from 'api/api';
+import { getAccessToken } from 'api/auth/auth-api';
 import AuthProtectedRoute from '@features/protected-routes/AuthProtectedRoute';
 
 const Dashboard = lazy(() => import('@features/dashboard/Dashboard'));
@@ -89,7 +89,17 @@ function App() {
   const isMounted = useRef(false);
   const refreshTokenTimeoutId = useRef(0);
 
-  const queryClient = useMemo(() => new QueryClient(), []);
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+    []
+  );
 
   const { setIsLoggedIn, setAccessToken, isRefreshTokenIntervalOn, setIsRefreshTokenIntervalOn } =
     useAuthStore(

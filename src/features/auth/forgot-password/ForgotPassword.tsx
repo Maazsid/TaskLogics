@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ForgotPasswordForm, forgotPasswordSchema } from '../Validators/ForgotPasswordSchema';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { forgotPassword } from 'api/api';
-import { ForgotPasswordReq } from 'api/models/forgot-password/forgot-password-req.model';
+import { forgotPassword } from 'api/auth/auth-api';
+import { ForgotPasswordReq } from 'api/auth/models/forgot-password/forgot-password-req.model';
 import { useNotificationStore } from 'store/store';
 
 const ForgotPassword = () => {

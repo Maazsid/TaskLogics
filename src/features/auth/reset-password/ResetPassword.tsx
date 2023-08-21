@@ -8,8 +8,8 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
-import { resetPassword } from 'api/api';
-import { ResetPasswordReq } from 'api/models/reset-password/reset-password-req.model';
+import { resetPassword } from 'api/auth/auth-api';
+import { ResetPasswordReq } from 'api/auth/models/reset-password/reset-password-req.model';
 import { useNotificationStore } from 'store/store';
 
 const ResetPassword = () => {

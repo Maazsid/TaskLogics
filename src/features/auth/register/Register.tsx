@@ -10,8 +10,8 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useState } from 'react';
 import PasswordStrengthList from '../password-strength-list/PasswordStrengthList';
 import { useMutation } from 'react-query';
-import { registerUser } from 'api/api';
-import { RegisterReq } from 'api/models/register/register-req.model';
+import { registerUser } from 'api/auth/auth-api';
+import { RegisterReq } from 'api/auth/models/register/register-req.model';
 import { useNotificationStore } from 'store/store';
 
 const Register = () => {
