@@ -17,7 +17,7 @@ const TimeTracker = () => {
   const showNotification = useNotificationStore((state) => state.showNotification);
   const queryClient = useQueryClient();
 
-  const { data: tasks } = useQuery('tasks', () => getTasks({ page: '1', pageSize: '10' }));
+  const { data: tasks } = useQuery('tasks', getTasks);
   const { isLoading: isCreateTaskLoading, mutate: createTaskReq } = useMutation(createTask);
   const { mutate: updateTaskReq } = useMutation(updateTask);
   const { mutate: deleteTaskReq } = useMutation(deleteTask);
