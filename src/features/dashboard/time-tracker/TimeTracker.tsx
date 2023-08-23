@@ -9,7 +9,7 @@ import { createTask, deleteTask, getTasks, updateTask } from 'api/tasks/tasks-ap
 import { Controller, useForm } from 'react-hook-form';
 import { CreateTaskReq } from 'api/tasks/models/create-task/create-task-req.model';
 import { useNotificationStore } from 'store/store';
-import { useTimeTracker } from 'hooks/useTimeTracker';
+import { useTimeTracker } from '@features/dashboard/hooks/useTimeTracker';
 import { UpdateTaskReq } from 'api/tasks/models/update-task/update-task-req.model';
 
 const TimeTracker = () => {
