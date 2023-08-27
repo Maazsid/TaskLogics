@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useAuthStore } from 'store/store';
+import { BaseApiResponse } from './models/base-api-res.model';
 
 export const axiosClient = axios.create({
   baseURL: 'http://localhost:3000/api/',
@@ -15,11 +16,18 @@ axiosClient.interceptors.request.use((req) => {
   return req;
 });
 
-axiosClient.interceptors.response.use((res) => {
-  const { navigate } = useAuthStore.getState() || {};
+axiosClient.interceptors.response.use(
+  (res) => res,
+  (err: AxiosError<BaseApiResponse<null>>) => {
+    const res = err?.response;
 
-  if (res?.status === 401 && navigate) {
-    navigate('/login');
+    const { navigate, setIsLoggedIn } = useAuthStore.getState() || {};
+
+    if (res?.status === 401 && navigate) {
+      setIsLoggedIn(false);
+      navigate('/login');
+    }
+
+    return res;
   }
-  return res;
-});
+);
