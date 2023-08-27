@@ -48,16 +48,23 @@ const TimeTracker = () => {
 
   const closeOptionsMenu = () => {
     setOptionsAnchor(null);
+  };
 
+  const onDeleteTask = () => {
     if (!task) return;
 
     deleteTaskReq(task.id?.toString(), {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks');
+        reset({
+          description: '',
+        });
+        setOptionsAnchor(null);
         showNotification('Task deleted successfully!', 'success');
       },
       onError: (error: any) => {
         const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        setOptionsAnchor(null);
         showNotification(errorMessage);
       },
     });
@@ -139,7 +146,7 @@ const TimeTracker = () => {
               <Menu open={!!optionsAnchor} anchorEl={optionsAnchor} onClose={closeOptionsMenu} elevation={4}>
                 <MenuItem
                   className={classes.optionMenuItem}
-                  onClick={closeOptionsMenu}
+                  onClick={onDeleteTask}
                   disabled={!isTimerRunning}
                 >
                   Discard
