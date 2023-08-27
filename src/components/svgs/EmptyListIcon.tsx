@@ -20,8 +20,8 @@ const EmptyListIcon = (props: any) => {
               cy="369.99"
               fill="none"
               stroke="#ff5061"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               rx="19.68"
               ry="34.1"
             />
@@ -38,8 +38,8 @@ const EmptyListIcon = (props: any) => {
             <path
               fill="none"
               stroke="#ff5061"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M68.1 404.09v-51.14M68.1 372.98l7.97-9.11M68.1 383.86l11.49-13.13M68.1 395.07l11.86-13.56M68.1 373l-9.66-11.05M68.1 383.88l-11.86-13.56M68.1 395.09l-11.86-13.56"
             />
             <ellipse
@@ -47,15 +47,15 @@ const EmptyListIcon = (props: any) => {
               cy="349.31"
               fill="none"
               stroke="#008ef8"
-              stroke-miterlimit="10"
+              strokeMiterlimit={10}
               rx="19.68"
               ry="34.1"
             />
             <path
               fill="none"
               stroke="#008ef8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M92.94 332.27v71.95M92.94 352.3l9.65-11.03M92.94 363.18l11.86-13.56M92.94 374.39l11.86-13.56M92.94 352.32l-9.67-11.05M92.94 363.2l-11.86-13.56M92.94 374.41l-11.86-13.56"
             />
             <ellipse
@@ -63,16 +63,16 @@ const EmptyListIcon = (props: any) => {
               cy="357.81"
               fill="none"
               stroke="#ffcd52"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               rx="19.68"
               ry="34.1"
             />
             <path
               fill="none"
               stroke="#ffcd52"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M37.82 340.77v63.45M37.82 360.8l9.65-11.03M37.82 371.68l11.86-13.56M37.82 382.89l11.86-13.56M37.82 360.82l-9.66-11.05M37.82 371.7l-11.86-13.56M37.82 382.92l-11.86-13.57"
             />
             <path
@@ -91,13 +91,13 @@ const EmptyListIcon = (props: any) => {
               y="221.2"
               fill="none"
               stroke="#0234c1"
-              stroke-miterlimit="10"
-              rx="3"
+              strokeMiterlimit={10}
+              rx={3}
             />
-            <rect width="96.93" height="69.41" x="100.58" y="226.29" fill="#008ef8" rx="3" />
-            <rect width="29.18" height="59.12" x="161.99" y="231.22" fill="#c1e3f7" rx="3" />
-            <rect width="47.35" height="20.24" x="108.81" y="270.11" fill="#c1e3f7" rx="3" />
-            <rect width="47.35" height="7.29" x="108.81" y="231.22" fill="#c1e3f7" rx="1" />
+            <rect width="96.93" height="69.41" x="100.58" y="226.29" fill="#008ef8" rx={3} />
+            <rect width="29.18" height="59.12" x="161.99" y="231.22" fill="#c1e3f7" rx={3} />
+            <rect width="47.35" height="20.24" x="108.81" y="270.11" fill="#c1e3f7" rx={3} />
+            <rect width="47.35" height="7.29" x="108.81" y="231.22" fill="#c1e3f7" rx={1} />
             <rect width="18.79" height="18.79" x="109.68" y="245.01" fill="#c1e3f7" rx="3.66" />
             <rect width="18.79" height="18.79" x="135.84" y="245.01" fill="#c1e3f7" rx="3.66" />
             <rect
@@ -107,13 +107,13 @@ const EmptyListIcon = (props: any) => {
               y="46.46"
               fill="none"
               stroke="#0234c1"
-              stroke-miterlimit="10"
-              rx="3"
+              strokeMiterlimit={10}
+              rx={3}
             />
-            <rect width="96.93" height="69.41" x="326.52" y="51.56" fill="#008ef8" rx="3" />
-            <rect width="29.18" height="59.12" x="387.93" y="56.49" fill="#c1e3f7" rx="3" />
-            <rect width="47.35" height="20.24" x="334.75" y="95.37" fill="#c1e3f7" rx="3" />
-            <rect width="47.35" height="7.29" x="334.75" y="56.49" fill="#c1e3f7" rx="1" />
+            <rect width="96.93" height="69.41" x="326.52" y="51.56" fill="#008ef8" rx={3} />
+            <rect width="29.18" height="59.12" x="387.93" y="56.49" fill="#c1e3f7" rx={3} />
+            <rect width="47.35" height="20.24" x="334.75" y="95.37" fill="#c1e3f7" rx={3} />
+            <rect width="47.35" height="7.29" x="334.75" y="56.49" fill="#c1e3f7" rx={1} />
             <rect width="18.79" height="18.79" x="335.62" y="70.27" fill="#c1e3f7" rx="3.66" />
             <rect width="18.79" height="18.79" x="361.77" y="70.27" fill="#c1e3f7" rx="3.66" />
             <path
@@ -136,7 +136,7 @@ const EmptyListIcon = (props: any) => {
               x="177.82"
               y="325.41"
               fill="#008ef8"
-              rx="7"
+              rx={7}
               transform="rotate(1.81 215.833 354.986)"
             />
             <rect
@@ -145,15 +145,15 @@ const EmptyListIcon = (props: any) => {
               x="165.81"
               y="133.9"
               fill="#008ef8"
-              rx="7"
+              rx={7}
               transform="rotate(1.81 203.633 163.95)"
             />
             <path
               fill="none"
               stroke="#0850ec"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
               d="M244.85 264.34 160.3 261M244.59 288.08l-84.31-2.03M251.36 309.2l-75.79-.11M256.52 140.04l92.43 3.65M256.16 164.04l91.89 3.64M271.82 186.77l77.3 2.83"
             />
             <path
@@ -187,11 +187,11 @@ const EmptyListIcon = (props: any) => {
             <path
               fill="none"
               stroke="#545454"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M.5 404.22h389.82"
             />
-            <circle cx="315.73" cy="276.91" r="72" fill="#c1e3f7" />
+            <circle cx="315.73" cy="276.91" r={72} fill="#c1e3f7" />
             <circle cx="316.09" cy="277.36" r="61.88" fill="#008ef8" />
             <path
               fill="#0234c1"

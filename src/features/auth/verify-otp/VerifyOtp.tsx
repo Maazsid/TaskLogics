@@ -7,7 +7,7 @@ import { useMutation } from 'react-query';
 import { resendOtp, verifyOtpCode } from 'api/auth/auth-api';
 import { VerifyOtpReq } from 'api/auth/models/verify-otp/verify-otp-req.model';
 import { VerificationTypeEnum } from 'enums/verification-type.enum';
-import useCountdownTimer from 'hooks/useCountdownTimer';
+import useCountdownTimer from '@features/auth/hooks/useCountdownTimer';
 import { useAuthStore, useNotificationStore } from 'store/store';
 import { shallow } from 'zustand/shallow';
 

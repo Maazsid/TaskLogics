@@ -1,7 +1,8 @@
-import { Task } from 'api/tasks/models/get-task/get-task-res.model';
+import { TaskI } from 'api/tasks/models/get-task/get-task-res.model';
 import { useEffect, useRef, useState } from 'react';
+import { getFormattedTime } from 'utils/utils';
 
-export const useTimeTracker = (tasks: Task[]) => {
+export const useTimeTracker = (tasks: TaskI[]) => {
   const [time, setTime] = useState(0);
   const intervalRef = useRef<number>();
 
@@ -26,19 +27,7 @@ export const useTimeTracker = (tasks: Task[]) => {
     clearInterval(intervalRef.current);
   }, [tasks]);
 
-  const hours = Math.floor(time / 3600)
-    ?.toString()
-    ?.padStart(2, '0');
-
-  const minutes = Math.floor((time % 3600) / 60)
-    ?.toString()
-    ?.padStart(2, '0');
-
-  const seconds = Math.floor(time % 60)
-    ?.toString()
-    ?.padStart(2, '0');
-
-  const formattedTime = `${hours}:${minutes}:${seconds}`;
+  const formattedTime = getFormattedTime(time);
 
   return formattedTime;
 };

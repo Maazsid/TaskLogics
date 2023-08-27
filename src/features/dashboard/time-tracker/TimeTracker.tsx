@@ -9,7 +9,7 @@ import { createTask, deleteTask, getTasks, updateTask } from 'api/tasks/tasks-ap
 import { Controller, useForm } from 'react-hook-form';
 import { CreateTaskReq } from 'api/tasks/models/create-task/create-task-req.model';
 import { useNotificationStore } from 'store/store';
-import { useTimeTracker } from 'hooks/useTimeTracker';
+import { useTimeTracker } from '@features/dashboard/hooks/useTimeTracker';
 import { UpdateTaskReq } from 'api/tasks/models/update-task/update-task-req.model';
 
 const TimeTracker = () => {
@@ -17,7 +17,7 @@ const TimeTracker = () => {
   const showNotification = useNotificationStore((state) => state.showNotification);
   const queryClient = useQueryClient();
 
-  const { data: tasks } = useQuery('tasks', () => getTasks({ page: '1', pageSize: '10' }));
+  const { data: tasks } = useQuery('tasks', getTasks);
   const { isLoading: isCreateTaskLoading, mutate: createTaskReq } = useMutation(createTask);
   const { mutate: updateTaskReq } = useMutation(updateTask);
   const { mutate: deleteTaskReq } = useMutation(deleteTask);
@@ -48,16 +48,23 @@ const TimeTracker = () => {
 
   const closeOptionsMenu = () => {
     setOptionsAnchor(null);
+  };
 
+  const onDeleteTask = () => {
     if (!task) return;
 
     deleteTaskReq(task.id?.toString(), {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks');
+        reset({
+          description: '',
+        });
+        setOptionsAnchor(null);
         showNotification('Task deleted successfully!', 'success');
       },
       onError: (error: any) => {
         const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+        setOptionsAnchor(null);
         showNotification(errorMessage);
       },
     });
@@ -139,7 +146,7 @@ const TimeTracker = () => {
               <Menu open={!!optionsAnchor} anchorEl={optionsAnchor} onClose={closeOptionsMenu} elevation={4}>
                 <MenuItem
                   className={classes.optionMenuItem}
-                  onClick={closeOptionsMenu}
+                  onClick={onDeleteTask}
                   disabled={!isTimerRunning}
                 >
                   Discard

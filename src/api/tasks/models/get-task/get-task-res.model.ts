@@ -1,6 +1,6 @@
-export type GetTaskRes = Array<Task>;
+export type GetTaskRes = Array<TaskI>;
 
-export interface Task {
+export interface TaskI {
   id: number;
   description: string;
   startTime: string;
