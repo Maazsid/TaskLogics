@@ -28,6 +28,6 @@ axiosClient.interceptors.response.use(
       navigate('/login');
     }
 
-    return res;
+    return Promise.reject(err);
   }
 );
