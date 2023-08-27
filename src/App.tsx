@@ -85,7 +85,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const isMounted = useRef(false);
   const refreshTokenTimeoutId = useRef(0);
 
