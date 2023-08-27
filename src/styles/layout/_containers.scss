@@ -3,6 +3,13 @@
   max-width: 92%;
 }
 
+.page-container-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 240px);
+}
+
 .page-container-2 {
   margin: 40px auto;
   max-width: 40%;

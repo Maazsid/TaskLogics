@@ -70,6 +70,39 @@ const TimeTracker = () => {
     });
   };
 
+  const onInputBlur = async () => {
+    if (!task) return;
+
+    let { description } = getValues() || {};
+
+    description = description?.trim();
+
+    const isDescriptionNotChanged = description === task?.description;
+    const isDescriptionEmpty = !description && !task?.description;
+
+    if (isDescriptionNotChanged || isDescriptionEmpty) return;
+
+    const requestBody: UpdateTaskReq = {
+      description: description,
+      startTime: task.startTime,
+      endTime: null,
+    };
+
+    updateTaskReq(
+      { reqBody: requestBody, taskId: task?.id?.toString() },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('tasks');
+          showNotification('Task Updated successfully!', 'success');
+        },
+        onError: (error: any) => {
+          const errorMessage = error?.response?.data?.messages?.[0] || 'Something went wrong.';
+          showNotification(errorMessage);
+        },
+      }
+    );
+  };
+
   const startTimer = () => {
     const { description } = getValues() || {};
     const requestBody: CreateTaskReq = { description, startTime: new Date().toISOString() };
@@ -160,13 +193,14 @@ const TimeTracker = () => {
             control={control}
             render={({ field }) => (
               <TextField
+                {...field}
                 multiline
                 maxRows={4}
                 fullWidth
                 size="small"
                 label="Enter description"
                 variant="outlined"
-                {...field}
+                onBlur={onInputBlur}
               />
             )}
           />
