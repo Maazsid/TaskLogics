@@ -42,12 +42,8 @@
   }
 
   &.loading {
-    & :global .MuiList-root {
-      pointer-events: none;
-    }
-    &::after {
-      background-color: $grey-color-50;
-    }
+    @include flex(row, center, center);
+    min-height: 600px;
   }
 }
 

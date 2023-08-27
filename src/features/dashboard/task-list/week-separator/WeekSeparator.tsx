@@ -1,11 +1,18 @@
 import classes from './WeekSeparator.module.scss';
+import { TaskListItem } from '@features/dashboard/models/task-list.model';
+import { getFormattedTime } from 'utils/utils';
 
-const WeekSeparator = () => {
+const WeekSeparator = ({ task }: WeekSeparatorProps) => {
+  const weekTotalTime = task?.weekTotalTime;
+
+  const formattedWeekTotalTime = getFormattedTime(weekTotalTime);
+
   return (
     <div className={classes.weekSeparator}>
       <span className={classes.weekSeparatorLine}></span>
       <p className={classes.weekSeparatorText}>
-        This week: <span className={`${classes.weekSeparatorText} ${classes.bold}`}>00:34:33</span>
+        {task?.weekName}:{' '}
+        <span className={`${classes.weekSeparatorText} ${classes.bold}`}>{formattedWeekTotalTime}</span>
       </p>
       <span className={classes.weekSeparatorLine}></span>
     </div>
@@ -13,3 +20,7 @@ const WeekSeparator = () => {
 };
 
 export default WeekSeparator;
+
+interface WeekSeparatorProps {
+  task: TaskListItem;
+}
