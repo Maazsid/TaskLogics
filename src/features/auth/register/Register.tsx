@@ -68,6 +68,10 @@ const Register = () => {
     });
   };
 
+  const onSignInWithGoogle = () => {
+    window.open('http://localhost:3000/api/auth/google', '_self');
+  };
+
   const isPasswordFieldDirty = getFieldState('password')?.isDirty;
 
   return (
@@ -231,8 +235,9 @@ const Register = () => {
           variant="outlined"
           startIcon={<GoogleIcon />}
           disabled={isLoading}
+          onClick={onSignInWithGoogle}
         >
-          Sign up with Google
+          Sign in with Google
         </Button>
         <Button
           className={`${classes.btn} ${classes.socialBtn}`}
@@ -240,7 +245,7 @@ const Register = () => {
           startIcon={<FacebookIcon />}
           disabled={isLoading}
         >
-          Sign up with Facebook
+          Sign in with Facebook
         </Button>
       </div>
 

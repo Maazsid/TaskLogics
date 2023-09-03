@@ -56,6 +56,10 @@ const Login = () => {
     });
   };
 
+  const onSignInWithGoogle = () => {
+    window.open('http://localhost:3000/api/auth/google', '_self');
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="headerTitle text-bold-1">Sign in</div>
@@ -138,6 +142,7 @@ const Login = () => {
           variant="outlined"
           startIcon={<GoogleIcon />}
           disabled={isLoading}
+          onClick={onSignInWithGoogle}
         >
           Sign in with Google
         </Button>
