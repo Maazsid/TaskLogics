@@ -227,9 +227,6 @@ const Register = () => {
       </div>
 
       <div className={classes.socialBtnWrapper}>
-        <Button className={classes.btn} variant="outlined" disabled={isLoading}>
-          Sign in as guest
-        </Button>
         <Button
           className={`${classes.btn} ${classes.socialBtn}`}
           variant="outlined"
@@ -238,14 +235,6 @@ const Register = () => {
           onClick={onSignInWithGoogle}
         >
           Sign in with Google
-        </Button>
-        <Button
-          className={`${classes.btn} ${classes.socialBtn}`}
-          variant="outlined"
-          startIcon={<FacebookIcon />}
-          disabled={isLoading}
-        >
-          Sign in with Facebook
         </Button>
       </div>
 
