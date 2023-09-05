@@ -3,7 +3,7 @@ import { useAuthStore } from 'store/store';
 import { BaseApiResponse } from './models/base-api-res.model';
 
 export const axiosClient = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 axiosClient.interceptors.request.use((req) => {
