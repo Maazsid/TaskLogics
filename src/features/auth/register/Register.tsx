@@ -69,7 +69,7 @@ const Register = () => {
   };
 
   const onSignInWithGoogle = () => {
-    window.open(`${import.meta.env.VITE_API_URL}api/auth/google`, '_self');
+    window.open(`${import.meta.env.VITE_API_URL}auth/google`, '_self');
   };
 
   const isPasswordFieldDirty = getFieldState('password')?.isDirty;
