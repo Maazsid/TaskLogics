@@ -14,7 +14,7 @@ To run the project locally:
 - `npm install` to install all the dependencies
 - `npm run dev` to start the local server on port 4200
 
-# Built With
+## Built With
 
 - React
 - React Query, Zustand, React Router
