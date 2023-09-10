@@ -10,7 +10,7 @@ Backend of task logics can be [found here.](https://github.com/Maazsid/task-logi
 
 To run the project locally:
 
-- Clonse this repo
+- Clone this repo
 - `npm install` to install all the dependencies
 - `npm run dev` to start the local server on port 4200
 
